@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useScheduleCatalog } from "@/context/ScheduleCatalogContext";
 import type { ScheduleItem } from "@/lib/schedule/schema";
 import { SOCIAL_LINKS } from "@/lib/data/social";
+import { MAPS_FALLBACK_SEARCH_QUERY } from "@/lib/locations/helpers";
 
 function formatWhen(it: ScheduleItem): string {
   const d = it.date?.trim();
@@ -26,12 +27,12 @@ function lineAddress(it: ScheduleItem): string {
 function mapsHref(it: ScheduleItem): string {
   const u = it.mapsUrl?.trim();
   if (u) return u;
-  const q = encodeURIComponent(lineAddress(it) || it.locationName || "Gringos Cubanos food truck");
+  const q = encodeURIComponent(lineAddress(it) || it.locationName || MAPS_FALLBACK_SEARCH_QUERY);
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 function appleHref(it: ScheduleItem): string {
-  const qApple = encodeURIComponent(lineAddress(it) || it.locationName || "Gringos Cubanos food truck");
+  const qApple = encodeURIComponent(lineAddress(it) || it.locationName || MAPS_FALLBACK_SEARCH_QUERY);
   return `https://maps.apple.com/?q=${qApple}`;
 }
 

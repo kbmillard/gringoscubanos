@@ -1,7 +1,14 @@
 import type { LocationItem } from "./schema";
 
-/** Search query for map links and embeds when the truck row has no pin or address yet. */
-const MAPS_BRAND_FALLBACK_QUERY = "Gringos Cubanos food truck";
+/**
+ * Text search when the truck row has no address yet (Apple / Google Maps links).
+ * Anchored to KC so Google does not pick an unrelated business (e.g. in Kentucky).
+ */
+export const MAPS_FALLBACK_SEARCH_QUERY =
+  "Gringos Cubanos food truck Kansas City Missouri" as const;
+
+/** Downtown KC — used for /embed/v1/view when there is no pin (no spurious place marker). */
+const MAP_EMBED_KC_CENTER = "39.0997,-94.5786";
 
 function publicMapsEmbedKey(): string | undefined {
   if (typeof process === "undefined") return undefined;
@@ -28,7 +35,7 @@ function mapsEmbedV1Place(loc: LocationItem, key: string): string | null {
   if (line.trim()) {
     return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(pub)}&q=${encodeURIComponent(line)}`;
   }
-  return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(pub)}&q=${encodeURIComponent(MAPS_BRAND_FALLBACK_QUERY)}`;
+  return `https://www.google.com/maps/embed/v1/view?key=${encodeURIComponent(pub)}&center=${encodeURIComponent(MAP_EMBED_KC_CENTER)}&zoom=10`;
 }
 
 /**
@@ -54,7 +61,7 @@ export function formatAddressLine(loc: LocationItem): string {
 /** Google Maps “search” URL when `mapsUrl` is blank. */
 export function defaultMapsSearchUrl(loc: LocationItem): string {
   const q = formatAddressLine(loc).trim();
-  const query = q || MAPS_BRAND_FALLBACK_QUERY;
+  const query = q || MAPS_FALLBACK_SEARCH_QUERY;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
@@ -65,13 +72,13 @@ export function resolvedMapsUrl(loc: LocationItem): string {
 
 export function resolvedAppleMapsUrl(loc: LocationItem): string {
   const q = formatAddressLine(loc).trim();
-  const query = q || MAPS_BRAND_FALLBACK_QUERY;
+  const query = q || MAPS_FALLBACK_SEARCH_QUERY;
   return `https://maps.apple.com/?q=${encodeURIComponent(query)}`;
 }
 
-/** Classic embed (no API key) centered on the brand search when there is no address or place id. */
+/** Classic embed (no API key) — KC metro view only when there is no address or place id. */
 export function brandFallbackMapsClassicEmbedUrl(): string {
-  return `https://www.google.com/maps?q=${encodeURIComponent(MAPS_BRAND_FALLBACK_QUERY)}&z=11&output=embed`;
+  return `https://www.google.com/maps?ll=${MAP_EMBED_KC_CENTER}&z=10&output=embed`;
 }
 
 /** Classic Google Maps embed (no API key) when only an address is available. */
