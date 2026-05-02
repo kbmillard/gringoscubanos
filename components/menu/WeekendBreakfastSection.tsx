@@ -251,7 +251,7 @@ export function WeekendBreakfastSection() {
                         <h3 className="mt-2 font-display text-4xl text-cream">{activeMeta.title}</h3>
                         <p className="mt-4 text-sm leading-relaxed text-cream/75 sm:text-base">
                           {activeMeta.blurb ??
-                            "Tap items on the right — choices open when required. Final price confirmed at pickup when not listed."}
+                            "Tap items on the right — choices open when required."}
                         </p>
                         <div
                           className={cn(
@@ -260,9 +260,6 @@ export function WeekendBreakfastSection() {
                           )}
                         >
                           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_55%)]" />
-                          <p className="absolute bottom-4 left-4 right-4 max-w-none text-sm text-cream/90 md:bottom-6 md:left-6 md:right-auto md:max-w-xs">
-                            Final price confirmed at pickup when not listed.
-                          </p>
                         </div>
                       </div>
 

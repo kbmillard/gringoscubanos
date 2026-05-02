@@ -248,9 +248,6 @@ export function InteractiveMenu() {
                             )}
                           />
                           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_55%)]" />
-                          <p className="absolute bottom-4 left-4 right-4 z-[1] max-w-none text-sm text-cream/90 md:bottom-6 md:left-6 md:right-auto md:max-w-xs">
-                            Final price confirmed at pickup when not listed.
-                          </p>
                         </div>
                       </div>
 
