@@ -95,7 +95,7 @@ export function Hero() {
         </div>
 
         <div className="grid w-full max-w-md grid-cols-2 gap-3 sm:grid-cols-2 lg:w-auto">
-          <Cta primary label="Order / request" onClick={openOrderPanel} />
+          <Cta primary label="Order" onClick={openOrderPanel} />
           <Cta label="View menu" onClick={focusMenu} />
           <Cta label="Find the truck" onClick={() => scrollToSection("locations")} />
           <Cta label="Upcoming schedule" onClick={focusSchedule} />

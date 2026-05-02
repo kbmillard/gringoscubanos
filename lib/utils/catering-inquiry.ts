@@ -42,15 +42,15 @@ export type CateringDeliveryMode = "mailto" | "sms";
 export type CateringInquiryOpenResult = { mode: CateringDeliveryMode; body: string };
 
 /**
- * Opens the visitor's mail or SMS app with a pre-filled inquiry (must run from a user gesture).
- * Returns the full inquiry text (for confirmation UI) and which channel was used.
+ * Opens the visitor's mail or SMS app with a pre-filled request (must run from a user gesture).
+ * Returns the full message text (for confirmation UI) and which channel was used.
  */
 export function openCateringInquiry(form: CateringFormFields): CateringInquiryOpenResult {
   const body = formatCateringInquiry(form);
   const email = cateringInboundEmail();
 
   if (email) {
-    const subject = encodeURIComponent("Gringos Cubanos — catering inquiry");
+    const subject = encodeURIComponent("Gringos Cubanos — catering request");
     window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
     return { mode: "mailto", body };
   }

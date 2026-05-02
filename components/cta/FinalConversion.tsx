@@ -20,7 +20,7 @@ export function FinalConversion() {
             onClick={openOrderPanel}
             className="w-full rounded-full bg-cream px-8 py-3 text-xs font-semibold uppercase tracking-editorial text-charcoal sm:w-auto"
           >
-            Order request
+            Order
           </button>
           <button
             type="button"

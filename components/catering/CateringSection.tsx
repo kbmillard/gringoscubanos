@@ -81,7 +81,7 @@ export function CateringSection() {
                   ·{" "}
                   <a
                     className="text-cream underline-offset-4 hover:underline"
-                    href={`mailto:${CONTACT.email}?subject=Catering%20inquiry`}
+                    href={`mailto:${CONTACT.email}?subject=Catering%20request`}
                   >
                     {CONTACT.email}
                   </a>
@@ -96,10 +96,6 @@ export function CateringSection() {
               >
                 Open request form
               </button>
-              <p className="mt-2 max-w-sm text-[11px] text-cream/55">
-                Jumps to the form and focuses the first field so you can send dates, headcount, and
-                location in one message.
-              </p>
             </div>
           </motion.div>
 
@@ -112,10 +108,10 @@ export function CateringSection() {
               <div className="space-y-3 rounded-2xl border border-agave/40 bg-agave/10 p-4 text-sm text-cream">
                 <p>
                   {postSubmit.mode === "mailto"
-                    ? "Your email app should open with this inquiry ready to send. If it did not, copy the text below and email us."
+                    ? "Your email app should open with this request ready to send. If it did not, copy the text below and email us."
                     : (
                         <>
-                          Your messages app should open with this inquiry ready to send as a text. If
+                          Your messages app should open with this request ready to send as a text. If
                           it did not, copy the text below and text us at{" "}
                           <a className="font-medium underline" href={`tel:${CONTACT.phoneTel}`}>
                             {CONTACT.phoneDisplay}
@@ -129,7 +125,7 @@ export function CateringSection() {
                   className="max-h-40 w-full resize-y rounded-xl border border-white/15 bg-black/30 p-3 font-mono text-xs text-cream/90"
                   value={postSubmit.body}
                   rows={8}
-                  aria-label="Inquiry text"
+                  aria-label="Request text"
                 />
                 <div className="flex flex-wrap gap-2">
                   <button
@@ -150,7 +146,7 @@ export function CateringSection() {
                     className="rounded-full border border-white/20 px-4 py-2 text-[10px] uppercase tracking-editorial text-cream hover:bg-white/5"
                     onClick={clearForm}
                   >
-                    New inquiry
+                    New request
                   </button>
                 </div>
               </div>
@@ -214,7 +210,7 @@ export function CateringSection() {
                 disabled={!!postSubmit}
                 className="rounded-full bg-salsa px-6 py-3 text-xs font-semibold uppercase tracking-editorial text-cream disabled:pointer-events-none disabled:opacity-45"
               >
-                Send inquiry
+                Send request
               </button>
               <button
                 type="button"
