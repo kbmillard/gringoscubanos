@@ -76,12 +76,17 @@ export function StorySection() {
             title="From Florida corners to Kansas City curbs."
             subtitle="Hello, this is Gringos Cubanos. Authentic Cuban cuisine coming to you in Kansas City and surrounding areas. We come from Florida, where Cuban food is on every corner. We moved here about five years ago and had so much trouble finding good Cubanos, so instead of continuing to search, we decided to bring it here to the great city of Kansas City."
           />
-          <p className="mt-6 text-sm leading-relaxed text-cream/80">
-            My brother and I have been working in kitchens together for thirty years combined, and
-            love what we do. We got a big, bold, bright truck, and the food is the same way. Skip the
-            usual taco and BBQ trucks and come try what we believe are the best Cubanos KCMO has to
-            offer.
-          </p>
+          <blockquote className="mt-6 border-l-2 border-gold/55 pl-5">
+            <p className="text-sm italic leading-relaxed text-cream/85">
+              &ldquo;My brother and I have been working in kitchens together for thirty years combined,
+              and love what we do. We got a big, bold, bright truck, and the food is the same way.
+              Skip the usual taco and BBQ trucks and come try what we believe are the best Cubanos
+              KCMO has to offer.&rdquo;
+            </p>
+            <footer className="mt-4 text-xs font-medium tracking-editorial text-cream/65">
+              Ken Viereck - Owner
+            </footer>
+          </blockquote>
         </motion.div>
 
         <motion.div
