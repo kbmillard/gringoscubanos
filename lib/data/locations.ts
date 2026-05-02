@@ -1,0 +1,51 @@
+import { SOCIAL_LINKS } from "@/lib/data/social";
+
+/** Hours copy when sheet rows are empty — truck is highly mobile. */
+export const HOURS_LINES = [
+  "Hours change by event and location — check the schedule board and Instagram for today.",
+  `Daily truck updates: ${SOCIAL_LINKS.instagram.handle} on Instagram`,
+] as const;
+
+export const CONTACT = {
+  phoneDisplay: "417-310-6172",
+  phoneTel: "+14173106172",
+  email: "",
+  socialHandle: SOCIAL_LINKS.instagram.handle,
+  socialUrl: SOCIAL_LINKS.instagram.href,
+  facebookUrl: SOCIAL_LINKS.facebook.href,
+} as const;
+
+export const TRUCK_STATUS_OPTIONS = [
+  "open",
+  "moving_soon",
+  "closed",
+  "catering_event",
+  "serving_now",
+  "next_stop",
+] as const;
+
+export type TruckStatusId = (typeof TRUCK_STATUS_OPTIONS)[number];
+
+export const TRUCK_STATUS_COPY: Record<
+  TruckStatusId,
+  { badge: string; detail: string }
+> = {
+  open: { badge: "Open", detail: "Swing by the truck — we are serving." },
+  moving_soon: {
+    badge: "Moving Soon",
+    detail: "We are packing up or heading to the next pin.",
+  },
+  closed: { badge: "Closed", detail: "Off the road for now — see schedule for the next stop." },
+  catering_event: {
+    badge: "Private Event",
+    detail: "Booked privately — public stops are listed on the schedule.",
+  },
+  serving_now: {
+    badge: "Serving Now",
+    detail: "We are on the line — follow the map pin above.",
+  },
+  next_stop: {
+    badge: "Next Stop",
+    detail: "Catch us at the next scheduled location.",
+  },
+};

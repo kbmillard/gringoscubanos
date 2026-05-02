@@ -1,0 +1,2 @@
+id,active,date,startTime,endTime,title,locationName,address,city,state,zip,status,statusNote,mapsUrl,lat,lng,description,featured,sortOrder,timezone,updatedAt
+example-stop,FALSE,2099-01-01,11:00,14:00,Example public stop,Example Lot,100 Main St,Kansas City,MO,64108,Public Stop,,,,,,Demo row — replace with real dates,TRUE,0,America/Chicago,

@@ -1,0 +1,2 @@
+id,active,type,sortOrder,name,label,address,city,state,zip,hours,phone,email,status,statusNote,mapsUrl,embedUrl,lat,lng,lastUpdated,timezone,weeklyHoursJson,messageBoard
+gringos-cubanos-truck,TRUE,food_truck,0,Gringos Cubanos Food Truck,Current truck,123 Example Ave,Kansas City,MO,64108,Varies by stop,417-310-6172,,Open,,,,,,2026-05-01T12:00:00Z,America/Chicago,,"We're parked here tonight until sold out."

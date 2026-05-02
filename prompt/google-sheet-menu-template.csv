@@ -1,0 +1,2 @@
+id,active,category,section,sortOrder,name,englishName,description,price,includesFries,meatChoiceRequired,featured,imageUrl,imageAlt,availabilityLabel,optionGroupsJson
+sandwich-cuban,TRUE,Sandwiches,,1,Cuban,,Marinated Cuban pulled pork sliced ham swiss cheese mayo mustard onions pickles,15,FALSE,FALSE,TRUE,,,,
