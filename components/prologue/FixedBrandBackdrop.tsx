@@ -6,7 +6,8 @@ const LOGO = "/images/brand/site-logo.webp";
 
 /**
  * Stays fixed under the scrolling homepage (below the nav). Hero sits above it;
- * transparent sections (e.g. prologue) let the faded mark show through.
+ * translucent sections use bg-charcoal/45 + blur so this mark stays visible.
+ * Do not regress to opaque section backgrounds — see .cursor/rules/gringos-backdrop.mdc
  */
 export function FixedBrandBackdrop() {
   return (

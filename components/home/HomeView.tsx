@@ -24,6 +24,7 @@ export function HomeView() {
   return (
     <>
       <EditorialNav />
+      {/* Backdrop first + translucent sections: see .cursor/rules/gringos-backdrop.mdc */}
       <main className="relative">
         <FixedBrandBackdrop />
         <Hero />
