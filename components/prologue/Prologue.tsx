@@ -29,14 +29,14 @@ export function Prologue() {
             src={LOGO}
             alt=""
             fill
-            className="object-contain opacity-[0.28] saturate-[1.05] sm:opacity-[0.34]"
+            className="object-contain opacity-[0.58] brightness-[1.08] saturate-[1.08] contrast-[1.05] sm:opacity-[0.68]"
             sizes="100vw"
           />
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/55 to-navy/20" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_38%,transparent_22%,rgba(15,17,20,0.4)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/38 to-navy/15" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_38%,transparent_28%,rgba(15,17,20,0.26)_100%)]" />
 
       <div className="relative z-10 mx-auto max-w-[1200px] px-5 sm:px-8">
         <SectionHeading
