@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CONTACT } from "@/lib/data/locations";
+import { openCateringInquiry } from "@/lib/utils/catering-inquiry";
 import { scrollDocumentToAnchor } from "@/lib/utils/scroll-to-anchor";
 
 const initial = {
@@ -19,12 +20,27 @@ const initial = {
 
 export function CateringSection() {
   const [form, setForm] = useState(initial);
-  const [sent, setSent] = useState(false);
+  const [postSubmit, setPostSubmit] = useState<{
+    body: string;
+    mode: "mailto" | "sms";
+  } | null>(null);
+
+  const scrollToFormAndFocus = useCallback(() => {
+    scrollDocumentToAnchor("catering-form");
+    requestAnimationFrame(() => {
+      document.getElementById("catering-name")?.focus();
+    });
+  }, []);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setPostSubmit(openCateringInquiry(form));
   };
+
+  const clearForm = useCallback(() => {
+    setForm(initial);
+    setPostSubmit(null);
+  }, []);
 
   return (
     <section
@@ -72,21 +88,18 @@ export function CateringSection() {
                 </>
               ) : null}
             </p>
-            <div className="flex flex-wrap gap-3 pt-4">
+            <div className="pt-4">
               <button
                 type="button"
                 className="rounded-full bg-salsa px-5 py-2 text-[10px] font-semibold uppercase tracking-editorial text-cream"
-                onClick={() => scrollDocumentToAnchor("catering-form")}
+                onClick={scrollToFormAndFocus}
               >
-                Book the truck
+                Open request form
               </button>
-              <button
-                type="button"
-                className="rounded-full border border-white/15 px-5 py-2 text-[10px] uppercase tracking-editorial text-cream hover:bg-white/5"
-                onClick={() => scrollDocumentToAnchor("catering-form")}
-              >
-                Start your booking
-              </button>
+              <p className="mt-2 max-w-sm text-[11px] text-cream/55">
+                Jumps to the form and focuses the first field so you can send dates, headcount, and
+                location in one message.
+              </p>
             </div>
           </motion.div>
 
@@ -95,17 +108,57 @@ export function CateringSection() {
             onSubmit={onSubmit}
             className="space-y-4 rounded-3xl border border-white/10 bg-black/30 p-6 sm:p-8"
           >
-            {sent ? (
-              <p className="rounded-2xl border border-agave/40 bg-agave/10 p-4 text-sm text-cream">
-                Thanks — we received your message. For a firm booking, call or text{" "}
-                <a className="font-medium underline" href={`tel:${CONTACT.phoneTel}`}>
-                  {CONTACT.phoneDisplay}
-                </a>
-                .
-              </p>
+            {postSubmit ? (
+              <div className="space-y-3 rounded-2xl border border-agave/40 bg-agave/10 p-4 text-sm text-cream">
+                <p>
+                  {postSubmit.mode === "mailto"
+                    ? "Your email app should open with this inquiry ready to send. If it did not, copy the text below and email us."
+                    : (
+                        <>
+                          Your messages app should open with this inquiry ready to send as a text. If
+                          it did not, copy the text below and text us at{" "}
+                          <a className="font-medium underline" href={`tel:${CONTACT.phoneTel}`}>
+                            {CONTACT.phoneDisplay}
+                          </a>
+                          .
+                        </>
+                      )}
+                </p>
+                <textarea
+                  readOnly
+                  className="max-h-40 w-full resize-y rounded-xl border border-white/15 bg-black/30 p-3 font-mono text-xs text-cream/90"
+                  value={postSubmit.body}
+                  rows={8}
+                  aria-label="Inquiry text"
+                />
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-semibold uppercase tracking-editorial text-cream hover:bg-white/5"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(postSubmit.body);
+                      } catch {
+                        /* ignore */
+                      }
+                    }}
+                  >
+                    Copy details
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-full border border-white/20 px-4 py-2 text-[10px] uppercase tracking-editorial text-cream hover:bg-white/5"
+                    onClick={clearForm}
+                  >
+                    New inquiry
+                  </button>
+                </div>
+              </div>
             ) : null}
+            <fieldset disabled={!!postSubmit} className="min-w-0 space-y-4 border-0 p-0">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field
+                id="catering-name"
                 label="Name"
                 value={form.name}
                 onChange={(v) => setForm((f) => ({ ...f, name: v }))}
@@ -154,19 +207,21 @@ export function CateringSection() {
                 onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
               />
             </label>
+            </fieldset>
             <div className="flex flex-wrap gap-3 pt-2">
               <button
                 type="submit"
-                className="rounded-full bg-salsa px-6 py-3 text-xs font-semibold uppercase tracking-editorial text-cream"
+                disabled={!!postSubmit}
+                className="rounded-full bg-salsa px-6 py-3 text-xs font-semibold uppercase tracking-editorial text-cream disabled:pointer-events-none disabled:opacity-45"
               >
-                Ask about catering
+                Send inquiry
               </button>
               <button
                 type="button"
                 className="rounded-full border border-white/15 px-6 py-3 text-xs uppercase tracking-editorial text-cream hover:bg-white/5"
-                onClick={() => setForm(initial)}
+                onClick={clearForm}
               >
-                Reset
+                Clear form
               </button>
             </div>
           </form>
@@ -177,6 +232,7 @@ export function CateringSection() {
 }
 
 function Field({
+  id,
   label,
   value,
   onChange,
@@ -184,6 +240,7 @@ function Field({
   placeholder,
   required,
 }: {
+  id?: string;
   label: string;
   value: string;
   onChange: (v: string) => void;
@@ -195,6 +252,7 @@ function Field({
     <label className={`block text-xs text-cream/60 ${className ?? ""}`}>
       {label}
       <input
+        id={id}
         required={required}
         className="mt-1 w-full rounded-xl border border-white/10 bg-charcoal px-3 py-2 text-sm text-cream"
         value={value}

@@ -27,14 +27,7 @@ export function FinalConversion() {
             onClick={focusCatering}
             className="w-full rounded-full border border-cream/40 px-8 py-3 text-xs font-semibold uppercase tracking-editorial text-cream sm:w-auto"
           >
-            Catering request
-          </button>
-          <button
-            type="button"
-            onClick={focusCatering}
-            className="w-full rounded-full border border-cream/40 px-8 py-3 text-xs font-semibold uppercase tracking-editorial text-cream sm:w-auto"
-          >
-            Book the truck
+            {"Truck & catering request"}
           </button>
         </div>
       </div>
