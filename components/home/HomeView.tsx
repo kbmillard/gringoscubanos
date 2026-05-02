@@ -29,8 +29,8 @@ export function HomeView() {
         <FixedBrandBackdrop />
         <Hero />
         <Prologue />
-        <LocationsSection />
         <InteractiveMenu />
+        <LocationsSection />
         <ScheduleSection />
         <GallerySection />
         <SocialPromoSection />
