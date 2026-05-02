@@ -1,19 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 const LOGO = "/images/brand/site-logo.webp";
-
-const STATS = [
-  "30 years combined kitchen craft",
-  "Florida roots → Kansas City",
-  "Big bright truck",
-  "Pressed Cuban bread",
-  "Bold sides & drinks",
-  "Catering ready",
-] as const;
 
 export function Prologue() {
   return (
@@ -44,30 +34,6 @@ export function Prologue() {
           subtitle="Authentic Old World Cuban sandwiches, marinated to perfection and pressed on fresh Cuban bread. Pair your sandwich with hand-cut sides, bold flavors, and refreshing drinks."
           align="center"
         />
-
-        <motion.ul
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.06 } },
-          }}
-          className="mt-12 grid gap-4 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {STATS.map((s) => (
-            <motion.li
-              key={s}
-              variants={{
-                hidden: { opacity: 0, y: 12 },
-                show: { opacity: 1, y: 0 },
-              }}
-              className="rounded-2xl border border-white/15 bg-black/30 px-5 py-4 text-center text-xs uppercase tracking-editorial text-cream/85 backdrop-blur-sm"
-            >
-              {s}
-            </motion.li>
-          ))}
-        </motion.ul>
       </div>
     </section>
   );
