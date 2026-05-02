@@ -29,10 +29,10 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-[100svh] items-end overflow-hidden pt-[var(--nav-h)]"
+      className="relative isolate flex min-h-[min(78svh,820px)] items-end overflow-hidden pt-[var(--nav-h)] sm:min-h-[min(80svh,860px)]"
     >
-      <div className="absolute inset-0">
-        {/* Charcoal under images so blend never flashes to “empty” UI chrome */}
+      {/* z-0: slideshow never paints above copy or scrims */}
+      <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-charcoal" aria-hidden />
         {HERO_SLIDES.map((slideItem, idx) => (
           <motion.div
@@ -47,30 +47,25 @@ export function Hero() {
               duration: reduceMotion ? 0 : CROSSFADE_S,
               ease: CROSSFADE_EASE,
             }}
-            style={{ zIndex: idx === i ? 2 : 0 }}
+            style={{ zIndex: idx === i ? 1 : 0 }}
           >
             <Image
               src={slideItem.src}
               alt={slideItem.alt}
               fill
-              className="object-cover"
+              className="object-cover object-center"
               sizes="100vw"
-              priority={idx === 0}
-              fetchPriority={idx === 0 ? "high" : idx <= 2 ? "auto" : "low"}
+              priority={idx < 3}
+              fetchPriority={idx === i ? "high" : idx < 3 ? "auto" : "low"}
             />
           </motion.div>
         ))}
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/75 to-navy/35" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-cuban-red/25 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-charcoal via-charcoal/80 to-navy/40" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[42%] bg-gradient-to-t from-cuban-red/30 to-transparent" />
 
-      <div className="relative z-[1] mx-auto flex w-full max-w-[1400px] flex-col gap-10 px-5 pb-16 pt-24 sm:px-8 lg:flex-row lg:items-end lg:justify-between">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
-        >
+      <div className="relative z-[2] mx-auto flex w-full max-w-[1400px] flex-col gap-10 px-5 pb-14 pt-20 sm:px-8 sm:pb-16 sm:pt-24 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-3xl [text-shadow:0_2px_28px_rgba(0,0,0,0.55)]">
           <p className="text-xs uppercase tracking-editorial text-cream/75">
             Gringos Cubanos · Authentic Cuban food truck · Kansas City
           </p>
@@ -97,20 +92,15 @@ export function Hero() {
               />
             ))}
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.7 }}
-          className="grid w-full max-w-md grid-cols-2 gap-3 sm:grid-cols-2 lg:w-auto"
-        >
+        <div className="grid w-full max-w-md grid-cols-2 gap-3 sm:grid-cols-2 lg:w-auto">
           <Cta primary label="Order / request" onClick={openOrderPanel} />
           <Cta label="View menu" onClick={focusMenu} />
           <Cta label="Find the truck" onClick={() => scrollToSection("locations")} />
           <Cta label="Upcoming schedule" onClick={focusSchedule} />
           <Cta label="Catering" onClick={focusCatering} className="col-span-2 sm:col-span-1" />
-        </motion.div>
+        </div>
       </div>
     </section>
   );
