@@ -9,18 +9,19 @@ export function Prologue() {
   return (
     <section
       id="prologue"
-      className="relative min-h-[520px] overflow-hidden py-24 sm:min-h-[580px]"
+      className="relative min-h-[min(88svh,760px)] overflow-hidden py-20 sm:min-h-[min(90svh,820px)] sm:py-24"
     >
       <div className="pointer-events-none absolute inset-0 bg-charcoal" aria-hidden />
 
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden pt-[var(--nav-h)]">
-        <div className="relative aspect-square w-[min(165vw,72rem)] translate-y-[24%] sm:w-[min(150vw,80rem)] sm:translate-y-[28%] md:translate-y-[32%]">
+      {/* Sized with vmin so the full circular mark fits in-frame; nudge up so it isn’t cropped under the fold */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center pt-[calc(var(--nav-h)+0.5rem)] pb-16 sm:pb-20">
+        <div className="relative aspect-square h-[min(68vmin,480px)] w-[min(68vmin,480px)] max-h-[62svh] max-w-[92vw] -translate-y-[6%] sm:h-[min(72vmin,540px)] sm:w-[min(72vmin,540px)] sm:max-h-[58svh] sm:-translate-y-[8%] md:-translate-y-[10%]">
           <Image
             src={LOGO}
             alt=""
             fill
             className="object-contain opacity-[0.78] brightness-[1.14] saturate-[1.12] contrast-[1.1] sm:opacity-[0.9]"
-            sizes="100vw"
+            sizes="(max-width: 768px) 90vw, 560px"
           />
         </div>
       </div>
