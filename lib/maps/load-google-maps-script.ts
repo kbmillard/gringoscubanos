@@ -1,6 +1,6 @@
 /**
  * Singleton loader for the Maps JavaScript API (browser only).
- * Embed API iframes cannot set gestureHandling; JS API uses greedy scroll/zoom.
+ * Embed API iframes cannot set gestureHandling; JS maps use cooperative gestures (page scroll friendly).
  */
 let loadPromise: Promise<void> | null = null;
 

@@ -11,8 +11,8 @@ type Props = {
 };
 
 /**
- * Interactive map with scroll-wheel zoom (no “⌘ + scroll” overlay).
- * Requires Maps JavaScript API enabled for the same key as Embed/Geocode.
+ * Inline map — wheel/trackpad scroll passes through to the page (cooperative gestures).
+ * Pan with drag; zoom with +/- or Ctrl/Cmd + scroll on the map. Maps JavaScript API key required.
  */
 export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
   const elRef = useRef<HTMLDivElement>(null);
@@ -36,12 +36,11 @@ export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
       map = new google.maps.Map(elRef.current, {
         center: { lat, lng },
         zoom: 16,
-        gestureHandling: "greedy",
+        gestureHandling: "cooperative",
         mapTypeControl: true,
         streetViewControl: false,
         fullscreenControl: true,
       });
-      map.setOptions({ gestureHandling: "greedy" });
 
       new google.maps.Marker({
         map,
