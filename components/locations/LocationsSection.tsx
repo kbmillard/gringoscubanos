@@ -2,6 +2,7 @@
 
 import { MapPin, Phone } from "lucide-react";
 import { CONTACT } from "@/lib/data/locations";
+import { SOCIAL_LINKS } from "@/lib/data/social";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLocationsCatalog } from "@/context/LocationsCatalogContext";
 import type { LocationItem } from "@/lib/locations/schema";
@@ -153,6 +154,18 @@ export function LocationsSection() {
           <article className="mt-12 overflow-hidden rounded-3xl border border-white/10 bg-charcoal/35 p-6 backdrop-blur-md sm:p-10">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
               <div className="min-w-0 flex-1 space-y-4">
+                <p className="text-sm leading-relaxed text-cream/75">
+                  You can always keep up with us in real time on{" "}
+                  <a
+                    href={SOCIAL_LINKS.instagram.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cream underline-offset-4 hover:underline"
+                  >
+                    Instagram {SOCIAL_LINKS.instagram.handle}
+                  </a>{" "}
+                  as well.
+                </p>
                 <p className="text-xs uppercase tracking-editorial text-gold/90">Current truck location</p>
                 <h3 className="font-display text-3xl text-cream sm:text-4xl">{primaryTruck.name}</h3>
                 <LocationPublicStatus location={primaryTruck} variant="card" showNote />
