@@ -29,6 +29,6 @@ alwaysApply: true
 
 ## Prologue
 
-- `Prologue.tsx` is **copy only** (no duplicate logo); transparency lets the fixed backdrop show through.
+- `Prologue.tsx` is **copy only** (no duplicate logo). Welcome copy sits in a **glass** card (`bg-charcoal/35 backdrop-blur-md`, border) so it matches locations/menu; the section itself stays backdrop-clear above the fixed watermark.
 
 When adding new homepage sections, match the **translucent charcoal + blur** pattern unless the section must be fully opaque (e.g. modals, nav, hero).

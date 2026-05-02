@@ -123,12 +123,11 @@ export function LocationsSection() {
   return (
     <section
       id="locations"
-      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 py-24 backdrop-blur-sm"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 pb-24 pt-12 backdrop-blur-sm sm:pb-28 sm:pt-14"
     >
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <div id="locations-start" tabIndex={-1} className="outline-none focus:outline-none">
           <SectionHeading
-            kicker="Current truck"
             title="Find us on the curb — pin updates from the road."
             subtitle="The truck moves daily. Address, hours, and notes update here when they are published."
           />
