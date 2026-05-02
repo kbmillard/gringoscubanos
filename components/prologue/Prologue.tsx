@@ -29,16 +29,16 @@ export function Prologue() {
             src={LOGO}
             alt=""
             fill
-            className="object-contain opacity-[0.58] brightness-[1.08] saturate-[1.08] contrast-[1.05] sm:opacity-[0.68]"
+            className="object-contain opacity-[0.78] brightness-[1.14] saturate-[1.12] contrast-[1.1] sm:opacity-[0.9]"
             sizes="100vw"
           />
         </div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/38 to-navy/15" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_38%,transparent_28%,rgba(15,17,20,0.26)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/25 to-navy/8" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_88%_72%_at_50%_36%,transparent_36%,rgba(15,17,20,0.14)_100%)]" />
 
-      <div className="relative z-10 mx-auto max-w-[1200px] px-5 sm:px-8">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 sm:px-8 [&_h2]:drop-shadow-[0_2px_20px_rgba(0,0,0,0.85)] [&_p]:drop-shadow-[0_1px_14px_rgba(0,0,0,0.75)]">
         <SectionHeading
           title="Welcome to Gringos Cubanos."
           subtitle="Authentic Old World Cuban sandwiches, marinated to perfection and pressed on fresh Cuban bread. Pair your sandwich with hand-cut sides, bold flavors, and refreshing drinks."
