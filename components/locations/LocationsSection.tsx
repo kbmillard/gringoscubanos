@@ -1,7 +1,7 @@
 "use client";
 
 import { MapPin, Phone } from "lucide-react";
-import { CONTACT, HOURS_LINES } from "@/lib/data/locations";
+import { CONTACT } from "@/lib/data/locations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { useLocationsCatalog } from "@/context/LocationsCatalogContext";
 import type { LocationItem } from "@/lib/locations/schema";
@@ -205,23 +205,6 @@ export function LocationsSection() {
             Current truck location is not available yet.
           </p>
         )}
-
-        <div
-          id="hours"
-          className="mt-12 scroll-mt-[calc(var(--nav-h)+16px)] rounded-3xl border border-white/10 bg-charcoal/30 p-8 backdrop-blur-sm"
-        >
-          <p className="text-xs uppercase tracking-editorial text-cream/60">Hours & updates</p>
-          <ul className="mt-3 space-y-2 text-cream/85">
-            {!loading && data?.locations.length
-              ? data.locations.map((loc) => (
-                  <li key={loc.id}>
-                    <span className="font-medium text-cream">{loc.name}</span>
-                    {loc.hours ? ` — ${loc.hours}` : null}
-                  </li>
-                ))
-              : HOURS_LINES.map((h) => <li key={h}>{h}</li>)}
-          </ul>
-        </div>
       </div>
     </section>
   );

@@ -10,6 +10,9 @@ export function resolveAnchorScrollId(id: string): string {
       return "locations-start";
     case "schedule":
       return "schedule-start";
+    /** Legacy anchor removed from page; land on schedule for hours-style intent */
+    case "hours":
+      return "schedule-start";
     case "catering":
       return "catering-start";
     case "weekend-breakfast":

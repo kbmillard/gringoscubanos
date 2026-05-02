@@ -53,7 +53,7 @@ export const SERVICE_ROWS: ServiceRow[] = [
     summary: "Kitchen hours that respect KC nights.",
     detail:
       "Tue–Fri from 5 PM and Sat–Sun from 8 AM — because hunger does not clock out at nine.",
-    ctas: [{ label: "View hours", action: "scroll", target: "hours" }],
+    ctas: [{ label: "View schedule", action: "scroll", target: "schedule" }],
   },
   {
     id: "private",
