@@ -56,18 +56,9 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
   const src = useGreedyJsMap ? null : resolvedEmbedSrc(loc);
 
   return (
-    <div>
-      <p className="text-xs uppercase tracking-editorial text-cream/50">
-        {loc.label?.trim() || loc.name}
-      </p>
-      {line.trim() ? (
-        <p className="mt-1 text-sm text-cream/80">{line}</p>
-      ) : (
-        <p className="mt-1 text-sm text-cream/60">TBD</p>
-      )}
-      <LocationPublicStatus location={loc} variant="map" showNote />
+    <>
       {useGreedyJsMap && lat != null && lng != null ? (
-        <div className="mt-3 overflow-hidden rounded-2xl border border-white/10">
+        <div className="overflow-hidden rounded-2xl border border-white/10">
           <GoogleMapGreedy
             lat={lat}
             lng={lng}
@@ -76,7 +67,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
           />
         </div>
       ) : useClientResolve ? (
-        <div className="mt-3 overflow-hidden rounded-2xl border border-white/10">
+        <div className="overflow-hidden rounded-2xl border border-white/10">
           <GoogleMapClientResolved
             loc={loc}
             title={loc.name}
@@ -84,7 +75,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
           />
         </div>
       ) : src ? (
-        <div className="mt-3 overflow-hidden rounded-2xl border border-white/10">
+        <div className="overflow-hidden rounded-2xl border border-white/10">
           <iframe
             title={`Map — ${loc.name}`}
             className="pointer-events-none h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
@@ -102,7 +93,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
