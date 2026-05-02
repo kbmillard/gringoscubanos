@@ -25,7 +25,6 @@ Publish each sheet as CSV and set env vars to the public CSV URL.
 ### Upcoming schedule
 
 - Columns: see `prompt/google-sheet-schedule-template.csv`.
-- Default timezone in code: **America/Chicago**.
 - Set `SCHEDULE_CSV_URL` or `NEXT_PUBLIC_SCHEDULE_CSV_URL`.
 
 ## Maps

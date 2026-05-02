@@ -225,12 +225,30 @@ export function InteractiveMenu() {
                         </p>
                         <div
                           className={cn(
-                            "relative mt-8 aspect-[4/3] w-full max-w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br",
-                            categoryHeroGradient(active.color),
+                            "relative mt-8 aspect-[4/3] w-full max-w-full overflow-hidden rounded-2xl border border-white/10",
+                            active.id !== "sandwiches" && "bg-gradient-to-br",
+                            active.id !== "sandwiches" && categoryHeroGradient(active.color),
                           )}
                         >
+                          {active.id === "sandwiches" ? (
+                            <Image
+                              src="/images/menu-sandwiches-hero.png"
+                              alt="Cuban sandwiches on the plancha"
+                              fill
+                              className="object-cover"
+                              sizes="(min-width: 1024px) 480px, 100vw"
+                            />
+                          ) : null}
+                          <div
+                            className={cn(
+                              "pointer-events-none absolute inset-0",
+                              active.id === "sandwiches"
+                                ? "bg-gradient-to-br from-black/60 via-black/20 to-transparent"
+                                : "bg-transparent",
+                            )}
+                          />
                           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_55%)]" />
-                          <p className="absolute bottom-4 left-4 right-4 max-w-none text-sm text-cream/90 md:bottom-6 md:left-6 md:right-auto md:max-w-xs">
+                          <p className="absolute bottom-4 left-4 right-4 z-[1] max-w-none text-sm text-cream/90 md:bottom-6 md:left-6 md:right-auto md:max-w-xs">
                             <span className="md:hidden">
                               Tap an item below — meat or style choices open when required. Final
                               price confirmed at pickup when not listed.

@@ -48,10 +48,13 @@ export function formatAddressLine(loc: LocationItem): string {
   return [loc.address, cityLine].filter(Boolean).join(", ");
 }
 
+const MAPS_BRAND_FALLBACK_QUERY = "Gringos Cubanos food truck";
+
 /** Google Maps “search” URL when `mapsUrl` is blank. */
 export function defaultMapsSearchUrl(loc: LocationItem): string {
-  const q = formatAddressLine(loc);
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+  const q = formatAddressLine(loc).trim();
+  const query = q || MAPS_BRAND_FALLBACK_QUERY;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 export function resolvedMapsUrl(loc: LocationItem): string {
@@ -60,7 +63,9 @@ export function resolvedMapsUrl(loc: LocationItem): string {
 }
 
 export function resolvedAppleMapsUrl(loc: LocationItem): string {
-  return `https://maps.apple.com/?q=${encodeURIComponent(formatAddressLine(loc))}`;
+  const q = formatAddressLine(loc).trim();
+  const query = q || MAPS_BRAND_FALLBACK_QUERY;
+  return `https://maps.apple.com/?q=${encodeURIComponent(query)}`;
 }
 
 /** Classic Google Maps embed (no API key) when only an address is available. */

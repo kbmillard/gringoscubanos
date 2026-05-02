@@ -63,9 +63,7 @@ export function footerHoursLines(
       })
       .filter(Boolean) as string[];
     if (primary.length) {
-      const ctNote =
-        "Public open/closed on the site uses Kansas City time (America/Chicago), including sheet hours and special statuses.";
-      const lines = instagramLine ? [...primary, instagramLine, ctNote] : [...primary, ctNote];
+      const lines = instagramLine ? [...primary, instagramLine] : [...primary];
       return lines;
     }
   }

@@ -26,13 +26,13 @@ function lineAddress(it: ScheduleItem): string {
 function mapsHref(it: ScheduleItem): string {
   const u = it.mapsUrl?.trim();
   if (u) return u;
-  const q = encodeURIComponent(lineAddress(it) || it.locationName || "Kansas City");
+  const q = encodeURIComponent(lineAddress(it) || it.locationName || "Gringos Cubanos food truck");
   return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 function appleHref(it: ScheduleItem): string {
-  const q = encodeURIComponent(lineAddress(it) || it.locationName || "Kansas City");
-  return `https://maps.apple.com/?q=${q}`;
+  const qApple = encodeURIComponent(lineAddress(it) || it.locationName || "Gringos Cubanos food truck");
+  return `https://maps.apple.com/?q=${qApple}`;
 }
 
 export function ScheduleSection() {

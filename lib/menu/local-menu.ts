@@ -2,7 +2,6 @@
  * Local fallback menu — Gringos Cubanos. Sheet CSV can override when URLs are set.
  * TODO: Confirm bottled water, lemon garlic oil add-on, and dessert pricing when owner finalizes.
  */
-import { gallerySrc } from "@/lib/data/gallery-path";
 import type { MenuItem } from "./schema";
 
 export const localMenuItems: MenuItem[] = [
@@ -18,8 +17,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food13*****.jpg"),
-    imageAlt: "Cuban sandwich — Gringos Cubanos",
   },
   {
     id: "sandwich-chicken-cuban",
@@ -33,8 +30,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food22******.jpg"),
-    imageAlt: "Chicken Cuban sandwich",
   },
   {
     id: "sandwich-cuban-steak",
@@ -48,8 +43,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food20*****8.jpg"),
-    imageAlt: "Cuban steak sandwich",
   },
   {
     id: "sandwich-fritas",
@@ -63,8 +56,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food21****.jpg"),
-    imageAlt: "Fritas sandwich",
   },
   {
     id: "side-empanada-single",
@@ -77,8 +68,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food12****.jpg"),
-    imageAlt: "Beef empanada",
   },
   {
     id: "side-empanada-two",
@@ -91,8 +80,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food24****.jpg"),
-    imageAlt: "Beef empanadas",
   },
   {
     id: "side-beans-rice",
@@ -105,8 +92,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food3.jpg"),
-    imageAlt: "Black beans and rice",
   },
   {
     id: "side-tostones",
@@ -120,8 +105,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food8.jpg"),
-    imageAlt: "Tostones fried plantains",
   },
   {
     id: "side-fries",
@@ -134,8 +117,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food4.jpg"),
-    imageAlt: "Hand-cut fries",
   },
   {
     id: "side-fritas-extra-patty",
@@ -148,8 +129,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food26****.jpg"),
-    imageAlt: "Extra patty add-on",
   },
   {
     id: "side-lemon-garlic-oil",
@@ -163,8 +142,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food17.jpg"),
-    imageAlt: "Lemon garlic oil add-on",
   },
   {
     id: "bowl-pork",
@@ -177,8 +154,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: true,
-    imageUrl: gallerySrc("food5.jpg"),
-    imageAlt: "Bowl with pork",
   },
   {
     id: "bowl-chicken",
@@ -191,8 +166,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food6.jpg"),
-    imageAlt: "Bowl with chicken",
   },
   {
     id: "bowl-steak",
@@ -205,8 +178,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food7.jpg"),
-    imageAlt: "Bowl with steak",
   },
   {
     id: "kids-grilled-cheese",
@@ -219,8 +190,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: true,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food9.jpg"),
-    imageAlt: "Kids grilled cheese meal",
   },
   {
     id: "kids-ham-cheese",
@@ -233,8 +202,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: true,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food11.jpg"),
-    imageAlt: "Kids ham and cheese meal",
   },
   {
     id: "bev-soda",
@@ -247,8 +214,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food1.jpg"),
-    imageAlt: "Soda",
   },
   {
     id: "bev-water",
@@ -261,8 +226,6 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food2.jpg"),
-    imageAlt: "Bottled water",
   },
   {
     id: "dessert-ask",
@@ -275,7 +238,5 @@ export const localMenuItems: MenuItem[] = [
     includesFries: false,
     meatChoiceRequired: false,
     featured: false,
-    imageUrl: gallerySrc("food18.jpg"),
-    imageAlt: "Desserts at Gringos Cubanos",
   },
 ];

@@ -12,21 +12,8 @@ export type WeeklyHours = Partial<Record<DayKey, DailyHoursWindow[]>>;
 
 export const DEFAULT_TIMEZONE = "America/Chicago";
 
-export const DEFAULT_WEEKLY_HOURS: WeeklyHours = {
-  mon: [{ open: "17:00", close: "23:00", label: "Regular Menu" }],
-  tue: [{ open: "17:00", close: "23:00", label: "Regular Menu" }],
-  wed: [{ open: "17:00", close: "23:00", label: "Regular Menu" }],
-  thu: [{ open: "17:00", close: "23:00", label: "Regular Menu" }],
-  fri: [{ open: "17:00", close: "23:00", label: "Regular Menu" }],
-  sat: [
-    { open: "08:00", close: "16:00", label: "Desayuno de Fin de Semana" },
-    { open: "17:00", close: "23:00", label: "Regular Menu" },
-  ],
-  sun: [
-    { open: "08:00", close: "16:00", label: "Desayuno de Fin de Semana" },
-    { open: "17:00", close: "23:00", label: "Regular Menu" },
-  ],
-};
+/** Empty until a location row ships `weeklyHoursJson` from the sheet. */
+export const DEFAULT_WEEKLY_HOURS: WeeklyHours = {};
 
 const DAY_KEYS: DayKey[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
@@ -143,13 +130,13 @@ export function resolveWeeklyHours(loc: LocationItem): WeeklyHours {
   return merged;
 }
 
-function formatMinutes12hWithCtSuffix(mins: number): string {
+function formatMinutes12h(mins: number): string {
   const h24 = Math.floor(mins / 60) % 24;
   const m = mins % 60;
   const period = h24 >= 12 ? "PM" : "AM";
   const h12 = h24 % 12 || 12;
   const minPart = m === 0 ? ":00" : `:${String(m).padStart(2, "0")}`;
-  return `${h12}${minPart} ${period} CT`;
+  return `${h12}${minPart} ${period}`;
 }
 
 function windowLabel(w: DailyHoursWindow): string {
@@ -266,7 +253,7 @@ function computeFromWeeklyHours(
     return {
       isOpen: true,
       label: "Open",
-      detail: `${wl} until ${closeM != null ? formatMinutes12hWithCtSuffix(closeM) : `${active.close} CT`}`,
+      detail: `${wl} until ${closeM != null ? formatMinutes12h(closeM) : active.close}`,
       activeWindowLabel: active.label?.trim() || wl,
       timezone: tz,
     };
@@ -284,8 +271,7 @@ function computeFromWeeklyHours(
 
   const openM = parseHHmm(next.window.open);
   const wl = windowLabel(next.window);
-  const timePart =
-    openM != null ? formatMinutes12hWithCtSuffix(openM) : `${next.window.open} CT`;
+  const timePart = openM != null ? formatMinutes12h(openM) : next.window.open;
 
   if (next.dayOffset === 0) {
     return {
@@ -318,7 +304,7 @@ const SPECIAL_OVERRIDE_STATUSES = new Set(["sold out", "catering event", "moving
 
 /**
  * Public-facing hours status for a location.
- * Uses the location's IANA `timezone` (default America/Chicago), never the viewer's local zone.
+ * Uses the location IANA `timezone` when computing windows, not the viewer's local zone.
  * Sheet `Open` is ignored for truth; special statuses still override display.
  */
 export function getLocationPublicStatus(

@@ -25,7 +25,7 @@ export type LocationItem = {
   lat: number | null;
   lng: number | null;
   lastUpdated: string;
-  /** IANA timezone for public hours (default America/Chicago in code). */
+  /** IANA timezone for computing weekly hours windows (internal; not shown on the marketing site). */
   timezone?: string;
   /** Optional CSV JSON override for weekly windows; invalid values are ignored. */
   weeklyHoursJson?: string;

@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { MapPin, Phone } from "lucide-react";
 import { CONTACT, HOURS_LINES } from "@/lib/data/locations";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -20,7 +19,11 @@ import { GoogleMapGreedy } from "@/components/locations/GoogleMapGreedy";
 function addressLines(loc: LocationItem): string[] {
   const cityLine = [loc.city, loc.state, loc.zip].filter(Boolean).join(" ").trim();
   const lines = [loc.address, cityLine].filter(Boolean);
-  return lines.length > 0 ? lines : [formatAddressLine(loc)];
+  return lines.length > 0 ? lines : [];
+}
+
+function hasPublishedAddress(loc: LocationItem): boolean {
+  return formatAddressLine(loc).trim().length > 0;
 }
 
 function isThirdPartyEmbedUrl(url: string): boolean {
@@ -57,7 +60,11 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
       <p className="text-xs uppercase tracking-editorial text-cream/50">
         {loc.label?.trim() || loc.name}
       </p>
-      <p className="mt-1 text-sm text-cream/80">{line}</p>
+      {line.trim() ? (
+        <p className="mt-1 text-sm text-cream/80">{line}</p>
+      ) : (
+        <p className="mt-1 text-sm text-cream/60">TBD</p>
+      )}
       <LocationPublicStatus location={loc} variant="map" showNote />
       {useGreedyJsMap && lat != null && lng != null ? (
         <div className="mt-3 overflow-hidden rounded-2xl border border-white/10">
@@ -89,7 +96,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
       ) : (
         <div className="mt-3 rounded-2xl border border-dashed border-white/20 bg-charcoal/60 p-6 text-sm text-cream/75">
           <p className="font-medium text-cream">Map preview</p>
-          <p className="mt-2">{line}</p>
+          <p className="mt-2 text-cream/70">TBD</p>
           <div className="mt-4">
             <MapButton label="Open in Google Maps" href={resolvedMapsUrl(loc)} />
           </div>
@@ -120,11 +127,7 @@ export function LocationsSection() {
   const phoneDisplay = primaryTruck?.phone?.trim() || CONTACT.phoneDisplay;
   const phoneTel = telHrefFromDisplay(phoneDisplay, CONTACT.phoneTel);
 
-  const messageBody = useMemo(() => {
-    const raw = primaryTruck?.messageBoard?.trim();
-    if (raw) return raw;
-    return "Follow us on Instagram for today’s truck updates.";
-  }, [primaryTruck?.messageBoard]);
+  const noteFromSheet = primaryTruck?.messageBoard?.trim() ?? "";
 
   return (
     <section id="locations" className="scroll-mt-[calc(var(--nav-h)+16px)] py-24">
@@ -133,7 +136,7 @@ export function LocationsSection() {
           <SectionHeading
             kicker="Current truck"
             title="Find us on the curb — pin updates from the road."
-            subtitle="The truck moves daily. Status uses Kansas City time (America/Chicago). Owner updates address, hours, and notes from Google Sheets."
+            subtitle="The truck moves daily. Address, hours, and notes update from Google Sheets when the owner publishes them."
           />
         </div>
 
@@ -159,21 +162,27 @@ export function LocationsSection() {
                 <div className="flex items-start gap-2 text-cream/90">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-gold" aria-hidden />
                   <div>
-                    {addressLines(primaryTruck).map((l) => (
-                      <p key={l}>{l}</p>
-                    ))}
+                    {hasPublishedAddress(primaryTruck) ? (
+                      addressLines(primaryTruck).map((l) => <p key={l}>{l}</p>)
+                    ) : (
+                      <p className="text-cream/75">TBD</p>
+                    )}
                   </div>
                 </div>
-                {primaryTruck.lastUpdated ? (
+                {primaryTruck.lastUpdated?.trim() ? (
                   <p className="text-xs text-cream/55">
-                    Last updated: {primaryTruck.lastUpdated}
+                    Last updated: {primaryTruck.lastUpdated.trim()}
                   </p>
                 ) : null}
                 <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
                   <p className="text-xs font-semibold uppercase tracking-editorial text-gold/90">
                     Today&apos;s truck note
                   </p>
-                  <p className="mt-2 text-sm leading-relaxed text-cream/90">{messageBody}</p>
+                  {noteFromSheet ? (
+                    <p className="mt-2 text-sm leading-relaxed text-cream/90">{noteFromSheet}</p>
+                  ) : (
+                    <div className="mt-2 min-h-[1.25rem]" aria-hidden />
+                  )}
                   {primaryTruck.statusNote?.trim() ? (
                     <p className="mt-3 text-xs text-cream/70">
                       <span className="font-semibold text-cream/80">Status note: </span>
@@ -209,10 +218,6 @@ export function LocationsSection() {
           className="mt-12 scroll-mt-[calc(var(--nav-h)+16px)] rounded-3xl border border-white/10 bg-black/30 p-8"
         >
           <p className="text-xs uppercase tracking-editorial text-cream/60">Hours & updates</p>
-          <p className="mt-2 text-xs text-cream/50">
-            Open/closed badges use America/Chicago. Special statuses (sold out, private event,
-            weather delay) override raw sheet &quot;Open&quot; when set.
-          </p>
           <ul className="mt-3 space-y-2 text-cream/85">
             {!loading && data?.locations.length
               ? data.locations.map((loc) => (

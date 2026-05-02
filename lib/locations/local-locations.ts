@@ -1,6 +1,6 @@
 import type { LocationItem } from "./schema";
 
-/** Demo truck row — replace via Google Sheet in production. */
+/** Fallback row until the Locations Sheet is published — leave text fields blank for the live site. */
 export const localLocationItems: LocationItem[] = [
   {
     id: "gringos-cubanos-truck",
@@ -9,22 +9,21 @@ export const localLocationItems: LocationItem[] = [
     sortOrder: 0,
     name: "Gringos Cubanos Food Truck",
     label: "Current truck",
-    address: "TBD — check Instagram for today’s pin",
-    city: "Kansas City",
-    state: "MO",
+    address: "",
+    city: "",
+    state: "",
     zip: "",
     hours: "Follow @gringos.cubanos for daily hours and stops",
     phone: "417-310-6172",
     email: "",
     status: "Open",
-    statusNote: "Demo location until the owner publishes the live sheet row.",
+    statusNote: "",
     mapsUrl: "",
     embedUrl: "",
     lat: null,
     lng: null,
-    lastUpdated: new Date().toISOString(),
+    lastUpdated: "",
     timezone: "America/Chicago",
-    messageBoard:
-      "Follow us on Instagram for today’s truck updates — this note updates from the Locations Sheet.",
+    messageBoard: "",
   },
 ];

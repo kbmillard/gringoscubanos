@@ -40,7 +40,7 @@ export function LocationPublicStatus({
     devStatusLoggedIds.add(location.id);
     const now = new Date();
     const tz = location.timezone?.trim() || "America/Chicago";
-    const chicago = new Intl.DateTimeFormat("en-US", {
+    const zonedNow = new Intl.DateTimeFormat("en-US", {
       timeZone: tz,
       weekday: "long",
       year: "numeric",
@@ -50,7 +50,6 @@ export function LocationPublicStatus({
       minute: "2-digit",
       second: "2-digit",
       hour12: true,
-      timeZoneName: "shortGeneric",
     }).format(now);
     const computed = getLocationPublicStatus(location, now);
     console.log("[Location status check]", {
@@ -58,7 +57,7 @@ export function LocationPublicStatus({
       rawStatus: location.status?.trim() ?? "",
       computedLabel: computed.label,
       computedDetail: computed.detail,
-      chicago,
+      zonedNow,
     });
   }, [location]);
 

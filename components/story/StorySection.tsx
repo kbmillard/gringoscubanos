@@ -27,12 +27,6 @@ const STORY_SLIDES: StorySlide[] = [
     kicker: "Florida roots, KC home",
     line: "We moved here about five years ago — and brought Cuban flavor with us.",
   },
-  {
-    src: gallerySrc("dog.jpg*****.jpg"),
-    alt: "Gringos Cubanos truck lifestyle photo",
-    kicker: "Family on the line",
-    line: "Two brothers, thirty years combined in kitchens — we love what we do.",
-  },
 ];
 
 const AUTO_ADVANCE_MS = 5000;
@@ -41,7 +35,7 @@ const SLIDE_ZOOM_OUT_S = 5.25;
 export function StorySection() {
   const prefersReducedMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
-  const [zoomKeys, setZoomKeys] = useState([0, 0, 0]);
+  const [zoomKeys, setZoomKeys] = useState(STORY_SLIDES.map(() => 0));
   const prevIndexRef = useRef(-1);
 
   useEffect(() => {

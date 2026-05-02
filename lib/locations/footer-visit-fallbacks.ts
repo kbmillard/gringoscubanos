@@ -10,7 +10,7 @@ export const FOOTER_VISIT_FALLBACK = {
   truck: {
     address: "See current truck location on site",
     detail: "",
-    cityLine: "Kansas City, MO area",
+    cityLine: "Kansas City metro",
   },
   hoursPrimary: "Hours vary by stop — see schedule and Instagram",
 } as const;
