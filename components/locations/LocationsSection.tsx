@@ -78,7 +78,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
         <div className="overflow-hidden rounded-2xl border border-white/10">
           <iframe
             title={`Map — ${loc.name}`}
-            className="pointer-events-none h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
+            className="h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             src={src}

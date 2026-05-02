@@ -11,8 +11,8 @@ type Props = {
 };
 
 /**
- * Inline map — wheel/trackpad scroll passes through to the page (cooperative gestures).
- * Pan with drag; zoom with +/- or Ctrl/Cmd + scroll on the map. Maps JavaScript API key required.
+ * Inline map — greedy gestures so drag/scroll/zoom work on the map without the cooperative
+ * “⌘ + scroll to zoom” overlay. Maps JavaScript API key required.
  */
 export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
   const elRef = useRef<HTMLDivElement>(null);
@@ -36,7 +36,7 @@ export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
       map = new google.maps.Map(elRef.current, {
         center: { lat, lng },
         zoom: 16,
-        gestureHandling: "cooperative",
+        gestureHandling: "greedy",
         mapTypeControl: true,
         streetViewControl: false,
         fullscreenControl: true,

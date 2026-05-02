@@ -98,7 +98,7 @@ export function GoogleMapClientResolved({ loc, title, className }: Props) {
     return (
       <iframe
         title={`Map — ${loc.name}`}
-        className={`pointer-events-none ${className ?? "h-[220px] w-full bg-charcoal"}`}
+        className={className ?? "h-[220px] w-full bg-charcoal"}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         src={iframeFallback}
