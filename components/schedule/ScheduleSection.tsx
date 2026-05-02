@@ -51,7 +51,7 @@ export function ScheduleSection() {
           <SectionHeading
             kicker="Upcoming schedule"
             title="Where we are rolling next."
-            subtitle="Dates, times, and stops update here when they are published. Featured stops show a badge — check Instagram for same-day changes."
+            subtitle="Dates, times, and stops update here when they are published."
           />
         </div>
 
