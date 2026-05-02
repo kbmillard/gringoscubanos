@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { HERO_SLIDES } from "@/lib/data/hero-slides";
 import { useOrder } from "@/context/OrderContext";
 
 const SLIDE_MS = 5500;
+/** Crossfade length — keep under SLIDE_MS so slides overlap in time without feeling sluggish */
+const CROSSFADE_S = 1.35;
+const CROSSFADE_EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 
 export function Hero() {
   const { openOrderPanel, focusMenu, scrollToSection, focusCatering, focusSchedule } = useOrder();
@@ -23,33 +26,40 @@ export function Hero() {
     return () => window.clearInterval(id);
   }, [next, reduceMotion]);
 
-  const slide = HERO_SLIDES[i]!;
-
   return (
     <section
       id="hero"
       className="relative flex min-h-[100svh] items-end overflow-hidden pt-[var(--nav-h)]"
     >
       <div className="absolute inset-0">
-        <AnimatePresence initial={false} mode="wait">
+        {/* Charcoal under images so blend never flashes to “empty” UI chrome */}
+        <div className="absolute inset-0 bg-charcoal" aria-hidden />
+        {HERO_SLIDES.map((slideItem, idx) => (
           <motion.div
-            key={slide.src}
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] }}
+            key={slideItem.src}
+            className={`absolute inset-0 ${idx !== i ? "pointer-events-none" : ""}`}
+            initial={false}
+            aria-hidden={idx !== i}
+            animate={{
+              opacity: idx === i ? 1 : 0,
+            }}
+            transition={{
+              duration: reduceMotion ? 0 : CROSSFADE_S,
+              ease: CROSSFADE_EASE,
+            }}
+            style={{ zIndex: idx === i ? 2 : 0 }}
           >
             <Image
-              src={slide.src}
-              alt={slide.alt}
+              src={slideItem.src}
+              alt={slideItem.alt}
               fill
-              priority
               className="object-cover"
               sizes="100vw"
+              priority={idx === 0}
+              fetchPriority={idx === 0 ? "high" : idx <= 2 ? "auto" : "low"}
             />
           </motion.div>
-        </AnimatePresence>
+        ))}
       </div>
       <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/75 to-navy/35" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-cuban-red/25 to-transparent" />
