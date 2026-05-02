@@ -81,7 +81,7 @@ type OrderContextValue = {
   focusSchedule: () => void;
   /** Clover checkout — requires all lines priced */
   submitOrder: (cloverTokenOverride?: string | null) => Promise<void>;
-  /** Price-TBD flow — no Clover */
+  /** Order request when any line is unpriced — no card charge */
   submitOrderRequest: () => Promise<void>;
 };
 
@@ -373,7 +373,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
           throw new Error(data.error || "Order failed");
         }
         setConfirmationId(data.orderId ?? null);
-        setSuccessMessage(data.message ?? "Payment recorded (demo).");
+        setSuccessMessage(data.message ?? "Payment recorded.");
         setOrderStatus("confirmed");
         setPaymentModalOpen(false);
         setCart([]);

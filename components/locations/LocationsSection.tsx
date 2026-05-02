@@ -95,7 +95,7 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
         </div>
       ) : (
         <div className="mt-3 rounded-2xl border border-dashed border-white/20 bg-charcoal/60 p-6 text-sm text-cream/75">
-          <p className="font-medium text-cream">Map preview</p>
+          <p className="font-medium text-cream">Map</p>
           <p className="mt-2 text-cream/70">TBD</p>
           <div className="mt-4">
             <MapButton label="Open in Google Maps" href={resolvedMapsUrl(loc)} />
@@ -136,13 +136,13 @@ export function LocationsSection() {
           <SectionHeading
             kicker="Current truck"
             title="Find us on the curb — pin updates from the road."
-            subtitle="The truck moves daily. Address, hours, and notes update from Google Sheets when the owner publishes them."
+            subtitle="The truck moves daily. Address, hours, and notes update here when they are published."
           />
         </div>
 
         {error ? (
           <p className="mt-6 rounded-xl border border-salsa/40 bg-salsa/10 p-4 text-sm text-cream">
-            {error} — try refreshing. Call{" "}
+            {error}. Call{" "}
             <a className="underline" href={`tel:${CONTACT.phoneTel}`}>
               {CONTACT.phoneDisplay}
             </a>
@@ -209,7 +209,7 @@ export function LocationsSection() {
           </article>
         ) : (
           <p className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-cream/80">
-            Truck location will appear here when published in the Locations Sheet.
+            Current truck location is not available yet.
           </p>
         )}
 

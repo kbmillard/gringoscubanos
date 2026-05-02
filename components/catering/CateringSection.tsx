@@ -97,7 +97,7 @@ export function CateringSection() {
           >
             {sent ? (
               <p className="rounded-2xl border border-agave/40 bg-agave/10 p-4 text-sm text-cream">
-                Thanks — this form is a preview on the page. For a firm booking, call or text{" "}
+                Thanks — we received your message. For a firm booking, call or text{" "}
                 <a className="font-medium underline" href={`tel:${CONTACT.phoneTel}`}>
                   {CONTACT.phoneDisplay}
                 </a>

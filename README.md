@@ -1,6 +1,6 @@
 # Gringos Cubanos — food truck website
 
-One-page **Next.js (App Router)** site: editorial nav, hero slideshow, current truck location (Google Sheets + maps), interactive menu with cart drawer, **upcoming schedule** board, gallery, social promo, catering form, and demo-safe order requests.
+One-page **Next.js (App Router)** site: editorial nav, hero slideshow, current truck location and maps, interactive menu with cart drawer, **upcoming schedule** board, gallery, social promo, catering form, and order requests.
 
 ## Brand assets (allowed images)
 
@@ -43,7 +43,7 @@ Defined in `lib/data/social.ts` as `SOCIAL_LINKS` and used in footer, social sec
 ## Orders / Clover
 
 - Default flow is **order request** (no payment) when prices are missing or Clover is unset.
-- Clover sandbox env vars remain optional until you go live.
+- Clover sandbox env vars are optional for local testing and staging.
 
 ## Local development
 

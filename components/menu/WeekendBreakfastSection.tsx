@@ -40,7 +40,7 @@ const SUBSECTIONS: {
 const PANEL_COLORS: MenuCategoryColor[] = ["orange", "yellow", "red"];
 
 function BreakfastPriceRow({ name, price }: { name: string; price: number | null }) {
-  const priceStr = price === null ? "Price TBD" : `$${price.toFixed(2)}`;
+  const priceStr = price === null ? "Pending" : `$${price.toFixed(2)}`;
   return (
     <div className="flex min-w-0 flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
       <p className="min-w-0 break-words text-base font-medium leading-snug text-cream">{name}</p>
@@ -261,14 +261,7 @@ export function WeekendBreakfastSection() {
                         >
                           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_55%)]" />
                           <p className="absolute bottom-4 left-4 right-4 max-w-none text-sm text-cream/90 md:bottom-6 md:left-6 md:right-auto md:max-w-xs">
-                            <span className="md:hidden">
-                              Tap an item below — meat or style choices open when required. Final
-                              price confirmed at pickup when not listed.
-                            </span>
-                            <span className="hidden md:inline">
-                              Tap items on the right — meat or style choices open when required. Final
-                              price confirmed at pickup when not listed.
-                            </span>
+                            Final price confirmed at pickup when not listed.
                           </p>
                         </div>
                       </div>

@@ -59,23 +59,23 @@ async function enrichLocationItem(loc: LocationItem): Promise<LocationItem> {
   return embedSrc ? { ...next, mapEmbedSrc: embedSrc } : next;
 }
 
-let demoPublicMapsKeyWarningShown = false;
+let mapsKeyDevNoteShown = false;
 
-function warnDemoPublicMapsKeyOnly(): void {
+function warnMapsKeyDevNote(): void {
   if (process.env.NODE_ENV !== "development") return;
   const pub = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim();
   const server =
     process.env.GOOGLE_MAPS_SERVER_KEY?.trim() || process.env.GOOGLE_MAPS_API_KEY?.trim();
   if (!pub || server) return;
-  if (demoPublicMapsKeyWarningShown) return;
-  demoPublicMapsKeyWarningShown = true;
+  if (mapsKeyDevNoteShown) return;
+  mapsKeyDevNoteShown = true;
   console.warn(
     "Maps: using NEXT_PUBLIC_GOOGLE_MAPS_API_KEY with HTTP referrer restrictions for client-side maps and geocoding. Google Cloud no longer requires a separate key at creation when website restrictions are set. GOOGLE_MAPS_SERVER_KEY is optional—only add it if you want server-side Geocoding API; restrict that key by IP and do not use the referrer-restricted key on the server.",
   );
 }
 
 async function enrichLocationItems(items: LocationItem[]): Promise<LocationItem[]> {
-  warnDemoPublicMapsKeyOnly();
+  warnMapsKeyDevNote();
   return Promise.all(items.map((item) => enrichLocationItem(item)));
 }
 

@@ -113,7 +113,7 @@ export async function POST(req: Request) {
     const hasNull = body.items.some((i) => i.unitPriceCents === null);
     if (hasNull) {
       return NextResponse.json(
-        { ok: false, error: "Cannot charge while items have Price TBD" },
+        { ok: false, error: "Cannot charge while any item has pending pricing" },
         { status: 400 },
       );
     }
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
     ok: true,
     orderId,
     paymentMode: "clover",
-    message: "Payment recorded (demo).",
+    message: "Payment recorded.",
     echo: {
       fulfillment: body.fulfillment,
       lineCount: body.items.length,

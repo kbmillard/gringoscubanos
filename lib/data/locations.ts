@@ -1,6 +1,6 @@
 import { SOCIAL_LINKS } from "@/lib/data/social";
 
-/** Hours copy when sheet rows are empty — truck is highly mobile. */
+/** Hours copy when no location hours are loaded yet. */
 export const HOURS_LINES = [
   "Hours change by event and location — check the schedule board and Instagram for today.",
   `Daily truck updates: ${SOCIAL_LINKS.instagram.handle} on Instagram`,

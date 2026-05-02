@@ -28,7 +28,7 @@ export function PopularOrders() {
           kicker="Popular orders"
           title="Featured picks from the street."
           align="center"
-          subtitle="Pulled from the live menu: items marked featured in Google Sheets (or the menu API) surface here first."
+          subtitle="Featured picks from the menu — Cuban sandwiches, sides, and bowls."
         />
 
         {loading || !data ? (
@@ -113,7 +113,7 @@ export function PopularOrders() {
               <h3 className="mt-1 font-display text-3xl text-cream">{openItem.name}</h3>
               <p className="mt-3 text-sm text-cream/75">{openItem.description}</p>
               <p className="mt-4 text-lg font-semibold text-cream">
-                {openItem.price === null ? "Price TBD" : `$${openItem.price.toFixed(2)}`}
+                {openItem.price === null ? "Pending" : `$${openItem.price.toFixed(2)}`}
               </p>
               <button
                 type="button"

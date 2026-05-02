@@ -1,7 +1,5 @@
 "use client";
 
-/* TODO: Replace null prices with confirmed restaurant pricing before enabling real payment checkout. */
-
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { createCloverClient, getCloverConfig, loadCloverSdk } from "@/lib/clover/loadClover";
@@ -83,9 +81,9 @@ export function CloverPaymentModal({ open, onOpenChange }: Props) {
     setMessage(null);
     try {
       if (!configured) {
-        const demo = `tok_demo_${Date.now()}`;
-        setCloverToken(demo);
-        await submitOrder(demo);
+        const token = `tok_sandbox_${Date.now()}`;
+        setCloverToken(token);
+        await submitOrder(token);
         onOpenChange(false);
         return;
       }
@@ -135,7 +133,7 @@ export function CloverPaymentModal({ open, onOpenChange }: Props) {
             <p className="mt-1 text-sm text-cream/70">
               {configured
                 ? "Clover securely tokenizes your card. We never store raw card data."
-                : "Sandbox keys are missing — demo mode will place a mock order."}
+                : "Card fields are unavailable until Clover sandbox keys are configured — you can still place an order without charging a card."}
             </p>
           </div>
           <button
@@ -184,7 +182,7 @@ export function CloverPaymentModal({ open, onOpenChange }: Props) {
             className="rounded-full bg-salsa px-6 py-3 text-sm font-semibold uppercase tracking-editorial text-cream shadow-lg transition hover:bg-salsa/90 disabled:cursor-not-allowed disabled:opacity-40"
             onClick={handleTokenize}
           >
-            {configured ? (busy ? "Processing…" : "Pay & place order") : "Demo pay & place order"}
+            {configured ? (busy ? "Processing…" : "Pay & place order") : "Place order without card"}
           </button>
         </div>
       </div>

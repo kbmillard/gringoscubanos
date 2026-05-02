@@ -10,7 +10,7 @@ function formatWhen(it: ScheduleItem): string {
   const d = it.date?.trim();
   const a = it.startTime?.trim();
   const b = it.endTime?.trim();
-  if (!d) return "Date TBD";
+  if (!d) return "—";
   if (a && b) return `${d} · ${a} – ${b}`;
   if (a) return `${d} · from ${a}`;
   return d;
@@ -47,7 +47,7 @@ export function ScheduleSection() {
           <SectionHeading
             kicker="Upcoming schedule"
             title="Where we are rolling next."
-            subtitle="Dates, times, and stops sync from Google Sheets. Featured events show a badge — always double-check Instagram for same-day changes."
+            subtitle="Dates, times, and stops update here when they are published. Featured stops show a badge — check Instagram for same-day changes."
           />
         </div>
 

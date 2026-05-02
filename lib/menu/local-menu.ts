@@ -1,7 +1,4 @@
-/**
- * Local fallback menu — Gringos Cubanos. Sheet CSV can override when URLs are set.
- * TODO: Confirm bottled water, lemon garlic oil add-on, and dessert pricing when owner finalizes.
- */
+/** Local menu catalog — Gringos Cubanos. */
 import type { MenuItem } from "./schema";
 
 export const localMenuItems: MenuItem[] = [
@@ -100,7 +97,7 @@ export const localMenuItems: MenuItem[] = [
     sortOrder: 4,
     name: "Tostones / Fried Plantains",
     description:
-      "Crispy fried plantains. Add homemade lemon garlic oil for extra flavor (see add-on — price TBD).",
+      "Crispy fried plantains. Add homemade lemon garlic oil for extra flavor (add-on; price pending).",
     price: 7,
     includesFries: false,
     meatChoiceRequired: false,
@@ -136,8 +133,7 @@ export const localMenuItems: MenuItem[] = [
     category: "Sides",
     sortOrder: 7,
     name: "Homemade lemon garlic oil (add-on)",
-    description:
-      "Optional add-on for tostones. TODO: confirm price with owner — currently Price TBD at checkout.",
+    description: "Optional add-on for tostones. Price pending.",
     price: null,
     includesFries: false,
     meatChoiceRequired: false,
@@ -221,7 +217,7 @@ export const localMenuItems: MenuItem[] = [
     category: "Beverages",
     sortOrder: 2,
     name: "Bottled Water",
-    description: "TODO: confirm price with owner.",
+    description: "Price pending.",
     price: null,
     includesFries: false,
     meatChoiceRequired: false,

@@ -80,15 +80,19 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-2">
           <div>
             <p className="text-xs uppercase tracking-editorial text-cream/50">Visit</p>
-            <p className="mt-2 text-sm text-cream/85">{visitTruck.address}</p>
-            {visitTruck.detail ? (
+            {visitTruck.address?.trim() ? (
+              <p className="mt-2 text-sm text-cream/85">{visitTruck.address}</p>
+            ) : (
+              <p className="mt-2 text-sm text-cream/70">TBD</p>
+            )}
+            {visitTruck.detail?.trim() ? (
               <p className="text-sm text-cream/85">{visitTruck.detail}</p>
             ) : null}
-            <p className="text-sm text-cream/85">{visitTruck.cityLine}</p>
+            {visitTruck.cityLine?.trim() ? (
+              <p className="text-sm text-cream/85">{visitTruck.cityLine}</p>
+            ) : null}
             {error ? (
-              <p className="mt-3 text-xs text-cream/50">
-                Visit could not refresh from the server; showing saved addresses.
-              </p>
+              <p className="mt-3 text-xs text-cream/50">Visit details could not be loaded.</p>
             ) : null}
           </div>
           <div>
@@ -99,8 +103,7 @@ export function SiteFooter() {
               ))}
             </ul>
             <p className="mt-6 text-xs text-cream/50">
-              Menu and truck data can be updated via Google Sheets (see README). Order requests are
-              demo-safe until live payment is enabled.
+              Order requests are sent to the team; payment is confirmed at pickup.
             </p>
           </div>
         </div>

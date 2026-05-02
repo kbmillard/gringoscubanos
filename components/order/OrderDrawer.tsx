@@ -16,12 +16,12 @@ function formatMoney(cents: number) {
 }
 
 function linePriceLabel(cents: number | null) {
-  if (cents === null) return "Price TBD";
+  if (cents === null) return "Pending";
   return `${formatMoney(cents)} each`;
 }
 
 function lineLineTotal(cents: number | null, qty: number) {
-  if (cents === null) return "Price TBD";
+  if (cents === null) return "Pending";
   return formatMoney(cents * qty);
 }
 
@@ -130,7 +130,7 @@ export function OrderDrawer() {
 
               {cartHasUnpricedItems && cart.length > 0 ? (
                 <p className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-cream/80">
-                  Final price confirmed at pickup for items marked Price TBD. You can still send an
+                  Final price is confirmed at pickup for items marked pending. You can still send an
                   order request — we will confirm pricing and pickup time.
                 </p>
               ) : null}
@@ -334,7 +334,7 @@ export function OrderDrawer() {
                     className="mt-1 w-full rounded-xl border border-white/10 bg-charcoal px-3 py-2 text-sm text-cream"
                     value={requestedTime}
                     onChange={(e) => setRequestedTime(e.target.value)}
-                    placeholder="e.g. Today 7:30 PM"
+                    placeholder="Requested pickup time"
                   />
                 </label>
                 <label className="text-xs text-cream/60 sm:col-span-2">

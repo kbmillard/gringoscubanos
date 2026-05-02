@@ -1,6 +1,6 @@
 import type { LocationItem } from "./schema";
 
-/** Fallback row until the Locations Sheet is published — leave text fields blank for the live site. */
+/** Default truck row when no remote catalog is configured. */
 export const localLocationItems: LocationItem[] = [
   {
     id: "gringos-cubanos-truck",
