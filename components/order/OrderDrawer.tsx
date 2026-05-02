@@ -341,12 +341,18 @@ export function OrderDrawer() {
                   />
                 </label>
                 <label className="text-xs text-cream/60 sm:col-span-2">
-                  Requested time
+                  {fulfillment === "delivery"
+                    ? "Requested delivery time"
+                    : "Requested pickup time"}
                   <input
                     className="mt-1 w-full rounded-xl border border-white/10 bg-charcoal px-3 py-2 text-sm text-cream"
                     value={requestedTime}
                     onChange={(e) => setRequestedTime(e.target.value)}
-                    placeholder="Requested pickup time"
+                    placeholder={
+                      fulfillment === "delivery"
+                        ? "Requested delivery time"
+                        : "Requested pickup time"
+                    }
                   />
                 </label>
                 <label className="text-xs text-cream/60 sm:col-span-2">
