@@ -20,7 +20,7 @@ export function FixedBrandBackdrop() {
             src={LOGO}
             alt=""
             fill
-            className="object-contain object-center opacity-[0.3] brightness-[1.04] saturate-[1.05] contrast-[1.02] sm:opacity-[0.36]"
+            className="object-contain object-center opacity-[0.34] brightness-[1.04] saturate-[1.05] contrast-[1.02] sm:opacity-[0.42]"
             sizes="(max-width: 768px) 90vw, 560px"
           />
         </div>

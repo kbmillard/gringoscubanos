@@ -28,7 +28,7 @@ export function GallerySection() {
   return (
     <section
       id="gallery"
-      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal py-24"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 py-24 backdrop-blur-sm"
     >
       <div className="mx-auto max-w-[1400px] px-5 sm:px-8">
         <SectionHeading

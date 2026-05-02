@@ -6,7 +6,7 @@ export function FinalConversion() {
   const { openOrderPanel, focusCatering } = useOrder();
 
   return (
-    <section className="relative z-10 border-t border-white/10 bg-gradient-to-br from-cuban-red/35 via-navy to-charcoal py-24">
+    <section className="relative z-10 border-t border-white/10 bg-charcoal/50 py-24 backdrop-blur-sm">
       <div className="mx-auto max-w-[900px] px-5 text-center sm:px-8">
         <p className="text-xs uppercase tracking-editorial text-cream/70">Ready</p>
         <h2 className="mt-3 font-display text-5xl text-cream sm:text-6xl">READY TO EAT?</h2>

@@ -123,7 +123,7 @@ export function LocationsSection() {
   return (
     <section
       id="locations"
-      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal py-24"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 py-24 backdrop-blur-sm"
     >
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <div id="locations-start" tabIndex={-1} className="outline-none focus:outline-none">
@@ -147,7 +147,7 @@ export function LocationsSection() {
         {loading ? (
           <div className="mt-12 h-96 animate-pulse rounded-3xl bg-white/10" />
         ) : primaryTruck ? (
-          <article className="mt-12 overflow-hidden rounded-3xl border border-gold/25 bg-gradient-to-br from-navy/80 to-charcoal p-6 sm:p-10">
+          <article className="mt-12 overflow-hidden rounded-3xl border border-white/10 bg-charcoal/35 p-6 backdrop-blur-md sm:p-10">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
               <div className="min-w-0 flex-1 space-y-4">
                 <p className="text-xs uppercase tracking-editorial text-gold/90">Current truck location</p>
@@ -168,7 +168,7 @@ export function LocationsSection() {
                     Last updated: {primaryTruck.lastUpdated.trim()}
                   </p>
                 ) : null}
-                <div className="rounded-2xl border border-white/10 bg-black/25 p-5">
+                <div className="rounded-2xl border border-white/10 bg-charcoal/25 p-5 backdrop-blur-sm">
                   <p className="text-xs font-semibold uppercase tracking-editorial text-gold/90">
                     Today&apos;s truck note
                   </p>
@@ -209,7 +209,7 @@ export function LocationsSection() {
 
         <div
           id="hours"
-          className="mt-12 scroll-mt-[calc(var(--nav-h)+16px)] rounded-3xl border border-white/10 bg-black/30 p-8"
+          className="mt-12 scroll-mt-[calc(var(--nav-h)+16px)] rounded-3xl border border-white/10 bg-charcoal/30 p-8 backdrop-blur-sm"
         >
           <p className="text-xs uppercase tracking-editorial text-cream/60">Hours & updates</p>
           <ul className="mt-3 space-y-2 text-cream/85">

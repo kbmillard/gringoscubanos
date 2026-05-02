@@ -62,7 +62,7 @@ export function StorySection() {
   return (
     <section
       id="story"
-      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal py-24"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 py-24 backdrop-blur-sm"
     >
       <div className="mx-auto grid max-w-[1200px] items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
         <motion.div

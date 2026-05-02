@@ -119,7 +119,7 @@ export function InteractiveMenu() {
   return (
     <section
       id="menu"
-      className="relative z-10 w-full min-w-0 max-w-full overflow-x-hidden scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal py-24"
+      className="relative z-10 w-full min-w-0 max-w-full overflow-x-hidden scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal/45 py-24 backdrop-blur-sm"
     >
       <div className="mx-auto w-full min-w-0 max-w-[1400px] overflow-x-hidden px-5 sm:px-8">
         <div

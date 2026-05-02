@@ -27,7 +27,7 @@ export function SiteFooter() {
   return (
     <footer
       id="contact"
-      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] border-t border-white/10 bg-midnight py-16"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] border-t border-white/10 bg-charcoal/70 py-16 backdrop-blur-md"
     >
       <div className="mx-auto flex max-w-[1200px] flex-col gap-10 px-5 sm:flex-row sm:justify-between sm:px-8">
         <div className="max-w-sm space-y-4">
