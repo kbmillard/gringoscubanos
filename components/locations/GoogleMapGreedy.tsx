@@ -16,13 +16,13 @@ type Props = {
  */
 export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
   const elRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<google.maps.Map | null>(null);
 
   useEffect(() => {
     const el = elRef.current;
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim();
-    if (!el || !apiKey) return;
+    if (!el || !apiKey) return undefined;
 
-    let map: google.maps.Map | undefined;
     let cancelled = false;
 
     void (async () => {
@@ -33,7 +33,7 @@ export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
       }
       if (cancelled || !elRef.current) return;
 
-      map = new google.maps.Map(elRef.current, {
+      const map = new google.maps.Map(elRef.current, {
         center: { lat, lng },
         zoom: 16,
         gestureHandling: "greedy",
@@ -41,6 +41,7 @@ export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
         streetViewControl: false,
         fullscreenControl: true,
       });
+      mapRef.current = map;
 
       new google.maps.Marker({
         map,
@@ -48,16 +49,22 @@ export function GoogleMapGreedy({ lat, lng, title, className }: Props) {
         title: title?.trim() || undefined,
       });
 
+      map.setOptions({ gestureHandling: "greedy" });
+
       requestAnimationFrame(() => {
-        if (map && window.google?.maps?.event) {
-          window.google.maps.event.trigger(map, "resize");
+        if (!cancelled && mapRef.current && window.google?.maps?.event) {
+          window.google.maps.event.trigger(mapRef.current, "resize");
         }
       });
     })();
 
     return () => {
       cancelled = true;
-      map = undefined;
+      const m = mapRef.current;
+      mapRef.current = null;
+      if (m && window.google?.maps?.event) {
+        window.google.maps.event.clearInstanceListeners(m);
+      }
     };
   }, [lat, lng, title]);
 

@@ -26,12 +26,6 @@ function hasPublishedAddress(loc: LocationItem): boolean {
   return formatAddressLine(loc).trim().length > 0;
 }
 
-function isThirdPartyEmbedUrl(url: string): boolean {
-  const u = url.trim().toLowerCase();
-  if (!u) return false;
-  return !u.includes("google.com") && !u.includes("maps.google.");
-}
-
 function parseCoord(n: number | null | undefined): number | null {
   if (n == null) return null;
   const v = Number(n);
@@ -46,8 +40,8 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
   const lat = parseCoord(loc.lat);
   const lng = parseCoord(loc.lng);
   const coordsOk = lat != null && lng != null;
-  const useGreedyJsMap =
-    coordsOk && Boolean(apiKey) && (!ownerEmbed || !isThirdPartyEmbedUrl(ownerEmbed));
+  /** Prefer JS map whenever we have coords + key so gestureHandling works (iframes always show cooperative UI). */
+  const useGreedyJsMap = coordsOk && Boolean(apiKey);
   const useClientResolve =
     Boolean(apiKey) &&
     !coordsOk &&
@@ -70,6 +64,15 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
         <div className="overflow-hidden rounded-2xl border border-white/10">
           <GoogleMapClientResolved
             loc={loc}
+            title={loc.name}
+            className="h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
+          />
+        </div>
+      ) : src && apiKey ? (
+        <div className="overflow-hidden rounded-2xl border border-white/10">
+          <GoogleMapGreedy
+            lat={39.0997}
+            lng={-94.5786}
             title={loc.name}
             className="h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
           />

@@ -95,6 +95,17 @@ export function GoogleMapClientResolved({ loc, title, className }: Props) {
   }
 
   if (iframeFallback) {
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim();
+    if (apiKey) {
+      return (
+        <GoogleMapGreedy
+          lat={39.0997}
+          lng={-94.5786}
+          title={title ?? loc.name}
+          className={className}
+        />
+      );
+    }
     return (
       <iframe
         title={`Map — ${loc.name}`}

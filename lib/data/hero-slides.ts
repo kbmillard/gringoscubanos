@@ -31,7 +31,17 @@ const HERO_SLIDE_DEFS = [
   },
 ] as const;
 
-export const HERO_SLIDES = HERO_SLIDE_DEFS.map(({ file, alt }) => ({
+const rawSlides = HERO_SLIDE_DEFS.map(({ file, alt }) => ({
   src: gallerySrc(file),
   alt,
 }));
+
+/** Drop accidental duplicate URLs so the carousel never “sticks” on the same asset twice. */
+export const HERO_SLIDES = (() => {
+  const seen = new Set<string>();
+  return rawSlides.filter((s) => {
+    if (seen.has(s.src)) return false;
+    seen.add(s.src);
+    return true;
+  });
+})();

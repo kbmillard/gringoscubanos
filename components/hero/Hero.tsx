@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { HERO_SLIDES } from "@/lib/data/hero-slides";
 import { useOrder } from "@/context/OrderContext";
 
 const SLIDE_MS = 5500;
-/** Crossfade length — keep under SLIDE_MS so slides overlap in time without feeling sluggish */
-const CROSSFADE_S = 1.35;
+/** Crossfade — keep well under SLIDE_MS so the next slide reads as a new beat, not “same photo twice.” */
+const CROSSFADE_S = 0.75;
 const CROSSFADE_EASE: [number, number, number, number] = [0.33, 0, 0.2, 1];
 
 export function Hero() {
@@ -16,15 +16,15 @@ export function Hero() {
   const reduceMotion = useReducedMotion();
   const [i, setI] = useState(0);
 
-  const next = useCallback(() => {
-    setI((v) => (v + 1) % HERO_SLIDES.length);
-  }, []);
-
   useEffect(() => {
-    if (reduceMotion) return;
-    const id = window.setInterval(next, SLIDE_MS);
+    if (reduceMotion) return undefined;
+    const len = HERO_SLIDES.length;
+    if (len < 2) return undefined;
+    const id = window.setInterval(() => {
+      setI((v) => (v + 1) % len);
+    }, SLIDE_MS);
     return () => window.clearInterval(id);
-  }, [next, reduceMotion]);
+  }, [reduceMotion]);
 
   return (
     <section
