@@ -2,11 +2,14 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useOrder } from "@/context/OrderContext";
 import { useMenuCatalog } from "@/context/MenuCatalogContext";
 import { formatOptionLine } from "@/lib/menu/option-groups";
 import { BrandLogo } from "@/components/ui/BrandLogo";
 import { cn } from "@/lib/utils/cn";
+import { useScrollLock } from "@/lib/utils/use-scroll-lock";
 
 function formatMoney(cents: number) {
   return new Intl.NumberFormat("en-US", {
@@ -26,6 +29,9 @@ function lineLineTotal(cents: number | null, qty: number) {
 }
 
 export function OrderDrawer() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const { itemsById } = useMenuCatalog();
   const {
     cart,
@@ -61,7 +67,11 @@ export function OrderDrawer() {
     submitOrderRequest,
   } = useOrder();
 
-  return (
+  useScrollLock(orderDrawerOpen);
+
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {orderDrawerOpen ? (
         <>
@@ -72,7 +82,7 @@ export function OrderDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             aria-label="Close cart"
-            className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm sm:bg-black/50"
+            className="fixed inset-0 z-[60] touch-none bg-black/60 backdrop-blur-sm sm:bg-black/50"
             onClick={() => setOrderDrawerOpen(false)}
           />
           <motion.aside
@@ -82,17 +92,18 @@ export function OrderDrawer() {
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 260, damping: 30 }}
             className={cn(
-              "fixed inset-x-0 bottom-0 z-[70] flex max-h-[92vh] flex-col rounded-t-3xl border border-white/10 bg-charcoal shadow-2xl",
-              "sm:inset-y-0 sm:right-0 sm:left-auto sm:h-full sm:max-h-none sm:w-[min(440px,100%)] sm:rounded-none sm:rounded-l-3xl",
+              "fixed inset-x-0 bottom-0 z-[70] flex min-h-0 flex-col rounded-t-3xl border border-white/10 bg-charcoal shadow-2xl",
+              "h-[min(92dvh,calc(100dvh-0.5rem))] max-h-[min(92dvh,calc(100dvh-0.5rem))] pb-[env(safe-area-inset-bottom,0px)]",
+              "sm:inset-y-0 sm:right-0 sm:left-auto sm:h-full sm:max-h-none sm:w-[min(440px,100%)] sm:rounded-none sm:rounded-l-3xl sm:pb-0",
             )}
             role="dialog"
             aria-modal="true"
             aria-label="Order and checkout"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-              <div className="flex items-center gap-3">
+            <header className="flex shrink-0 items-start justify-between gap-3 border-b border-white/10 px-4 pb-3 pt-[max(12px,env(safe-area-inset-top))] sm:px-5 sm:pb-4 sm:pt-4">
+              <div className="flex min-w-0 items-center gap-3">
                 <BrandLogo width={48} height={48} />
-                <div>
+                <div className="min-w-0">
                   <p className="text-xs uppercase tracking-editorial text-cream/60">
                     Live order
                   </p>
@@ -101,14 +112,15 @@ export function OrderDrawer() {
               </div>
               <button
                 type="button"
-                className="rounded-full border border-white/10 p-2 text-cream hover:bg-white/5"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/5 text-cream hover:bg-white/10 sm:h-10 sm:w-10"
                 onClick={() => setOrderDrawerOpen(false)}
+                aria-label="Close cart"
               >
-                <X className="h-5 w-5" />
+                <X className="h-6 w-6 sm:h-5 sm:w-5" />
               </button>
             </header>
 
-            <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto px-5 py-5">
+            <div className="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto overscroll-contain px-4 py-4 sm:px-5 sm:py-5">
               {confirmationId ? (
                 <div className="rounded-2xl border border-agave/40 bg-agave/10 p-4 text-cream">
                   <p className="font-display text-2xl">You are in.</p>
@@ -418,7 +430,7 @@ export function OrderDrawer() {
               {/* TODO: Wire SMS, email, Toast, Square, or POS when replacing mock order routes. */}
             </div>
 
-            <footer className="space-y-3 border-t border-white/10 p-5">
+            <footer className="shrink-0 space-y-3 border-t border-white/10 p-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:p-5 sm:pb-5">
               {/* TODO: Replace null prices with confirmed restaurant pricing before enabling real payment checkout. */}
               {cartHasUnpricedItems ? (
                 <button
@@ -449,7 +461,8 @@ export function OrderDrawer() {
           </motion.aside>
         </>
       ) : null}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 
