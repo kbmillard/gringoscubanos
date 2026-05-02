@@ -130,7 +130,7 @@ export function InteractiveMenu() {
           <SectionHeading
             kicker="Menu"
             title="Old World Cuban sandwiches — bold sides — cold drinks."
-            subtitle="Pressed to order, built for the curb. Items without a listed price show as price pending until confirmed."
+            subtitle="Pressed to order, built for the curb."
           />
         </div>
 
