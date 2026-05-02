@@ -13,6 +13,7 @@ import {
   resolvedMapsUrl,
   telHrefFromDisplay,
 } from "@/lib/locations/helpers";
+import { DEFAULT_MAP_PIN_LAT, DEFAULT_MAP_PIN_LNG } from "@/lib/maps/default-map-pin";
 import { GoogleMapClientResolved } from "@/components/locations/GoogleMapClientResolved";
 import { GoogleMapGreedy } from "@/components/locations/GoogleMapGreedy";
 
@@ -71,8 +72,8 @@ function MapEmbedBlock({ loc }: { loc: LocationItem }) {
       ) : src && apiKey ? (
         <div className="overflow-hidden rounded-2xl border border-white/10">
           <GoogleMapGreedy
-            lat={39.0997}
-            lng={-94.5786}
+            lat={DEFAULT_MAP_PIN_LAT}
+            lng={DEFAULT_MAP_PIN_LNG}
             title={loc.name}
             className="h-[min(52vw,320px)] w-full min-h-[220px] bg-charcoal"
           />

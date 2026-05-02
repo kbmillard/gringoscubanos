@@ -8,6 +8,7 @@ import {
   formatAddressLine,
   placeIdOnlyMapsEmbedIframeUrl,
 } from "@/lib/locations/helpers";
+import { DEFAULT_MAP_PIN_LAT, DEFAULT_MAP_PIN_LNG } from "@/lib/maps/default-map-pin";
 import { loadGoogleMapsScript } from "@/lib/maps/load-google-maps-script";
 import { GoogleMapGreedy } from "@/components/locations/GoogleMapGreedy";
 
@@ -99,8 +100,8 @@ export function GoogleMapClientResolved({ loc, title, className }: Props) {
     if (apiKey) {
       return (
         <GoogleMapGreedy
-          lat={39.0997}
-          lng={-94.5786}
+          lat={DEFAULT_MAP_PIN_LAT}
+          lng={DEFAULT_MAP_PIN_LNG}
           title={title ?? loc.name}
           className={className}
         />

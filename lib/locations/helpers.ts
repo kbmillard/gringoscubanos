@@ -1,4 +1,5 @@
 import type { LocationItem } from "./schema";
+import { DEFAULT_MAP_CENTER_COMMA } from "@/lib/maps/default-map-pin";
 
 /**
  * Text search when the truck row has no address yet (Apple / Google Maps links).
@@ -6,9 +7,6 @@ import type { LocationItem } from "./schema";
  */
 export const MAPS_FALLBACK_SEARCH_QUERY =
   "Gringos Cubanos food truck Kansas City Missouri" as const;
-
-/** Downtown KC — used for /embed/v1/view when there is no pin (no spurious place marker). */
-const MAP_EMBED_KC_CENTER = "39.0997,-94.5786";
 
 function publicMapsEmbedKey(): string | undefined {
   if (typeof process === "undefined") return undefined;
@@ -35,7 +33,7 @@ function mapsEmbedV1Place(loc: LocationItem, key: string): string | null {
   if (line.trim()) {
     return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(pub)}&q=${encodeURIComponent(line)}`;
   }
-  return `https://www.google.com/maps/embed/v1/view?key=${encodeURIComponent(pub)}&center=${encodeURIComponent(MAP_EMBED_KC_CENTER)}&zoom=10`;
+  return `https://www.google.com/maps/embed/v1/view?key=${encodeURIComponent(pub)}&center=${encodeURIComponent(DEFAULT_MAP_CENTER_COMMA)}&zoom=10`;
 }
 
 /**
@@ -78,7 +76,7 @@ export function resolvedAppleMapsUrl(loc: LocationItem): string {
 
 /** Classic embed (no API key) — KC metro view only when there is no address or place id. */
 export function brandFallbackMapsClassicEmbedUrl(): string {
-  return `https://www.google.com/maps?ll=${MAP_EMBED_KC_CENTER}&z=10&output=embed`;
+  return `https://www.google.com/maps?ll=${DEFAULT_MAP_CENTER_COMMA}&z=10&output=embed`;
 }
 
 /** Classic Google Maps embed (no API key) when only an address is available. */
