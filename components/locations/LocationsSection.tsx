@@ -121,7 +121,10 @@ export function LocationsSection() {
   const noteFromSheet = primaryTruck?.messageBoard?.trim() ?? "";
 
   return (
-    <section id="locations" className="scroll-mt-[calc(var(--nav-h)+16px)] py-24">
+    <section
+      id="locations"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-charcoal py-24"
+    >
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <div id="locations-start" tabIndex={-1} className="outline-none focus:outline-none">
           <SectionHeading

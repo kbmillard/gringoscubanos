@@ -42,7 +42,10 @@ export function ScheduleSection() {
   const nextId = items[0]?.id;
 
   return (
-    <section id="schedule" className="scroll-mt-[calc(var(--nav-h)+16px)] bg-midnight/40 py-24">
+    <section
+      id="schedule"
+      className="relative z-10 scroll-mt-[calc(var(--nav-h)+16px)] bg-midnight py-24"
+    >
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <div id="schedule-start" tabIndex={-1} className="outline-none focus:outline-none">
           <SectionHeading

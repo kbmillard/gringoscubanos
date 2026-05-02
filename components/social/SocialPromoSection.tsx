@@ -16,7 +16,7 @@ function TikTokIcon(props: { className?: string }) {
 
 export function SocialPromoSection() {
   return (
-    <section className="py-24">
+    <section className="relative z-10 bg-charcoal py-24">
       <div className="mx-auto max-w-[900px] px-5 sm:px-8">
         <SectionHeading
           kicker="Social"

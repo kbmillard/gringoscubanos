@@ -11,6 +11,7 @@ import { LocationsSection } from "@/components/locations/LocationsSection";
 import { EditorialNav } from "@/components/nav/EditorialNav";
 import { OrderDrawer } from "@/components/order/OrderDrawer";
 import { PopularOrders } from "@/components/popular/PopularOrders";
+import { FixedBrandBackdrop } from "@/components/prologue/FixedBrandBackdrop";
 import { Prologue } from "@/components/prologue/Prologue";
 import { ScheduleSection } from "@/components/schedule/ScheduleSection";
 import { SocialPromoSection } from "@/components/social/SocialPromoSection";
@@ -23,7 +24,8 @@ export function HomeView() {
   return (
     <>
       <EditorialNav />
-      <main>
+      <main className="relative">
+        <FixedBrandBackdrop />
         <Hero />
         <Prologue />
         <LocationsSection />

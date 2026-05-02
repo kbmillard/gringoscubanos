@@ -29,7 +29,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative isolate flex min-h-[min(78svh,820px)] items-end overflow-hidden pt-[var(--nav-h)] sm:min-h-[min(80svh,860px)]"
+      className="relative z-10 isolate flex min-h-[min(78svh,820px)] items-end overflow-hidden bg-charcoal pt-[var(--nav-h)] sm:min-h-[min(80svh,860px)]"
     >
       {/* z-0: slideshow never paints above copy or scrims */}
       <div className="absolute inset-0 z-0">
