@@ -3,8 +3,9 @@
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { CATERING_REQUEST_EMAILS } from "@/lib/data/catering-requests";
 import { CONTACT } from "@/lib/data/locations";
-import { openCateringInquiry } from "@/lib/utils/catering-inquiry";
+import { openCateringInquiry, type CateringRequestLaunch } from "@/lib/utils/catering-inquiry";
 import { scrollDocumentToAnchor } from "@/lib/utils/scroll-to-anchor";
 
 const initial = {
@@ -20,10 +21,7 @@ const initial = {
 
 export function CateringSection() {
   const [form, setForm] = useState(initial);
-  const [postSubmit, setPostSubmit] = useState<{
-    body: string;
-    mode: "mailto" | "sms";
-  } | null>(null);
+  const [postSubmit, setPostSubmit] = useState<CateringRequestLaunch | null>(null);
 
   const scrollToFormAndFocus = useCallback(() => {
     scrollDocumentToAnchor("catering-form");
@@ -107,19 +105,34 @@ export function CateringSection() {
             {postSubmit ? (
               <div className="space-y-3 rounded-2xl border border-agave/40 bg-agave/10 p-4 text-sm text-cream">
                 <p>
-                  {postSubmit.mode === "mailto"
-                    ? "Your email app should open with this request ready to send. If it did not, copy the text below and email us."
-                    : (
-                        <>
-                          Your messages app should open with this request ready to send as a text. If
-                          it did not, copy the text below and text us at{" "}
-                          <a className="font-medium underline" href={`tel:${CONTACT.phoneTel}`}>
-                            {CONTACT.phoneDisplay}
-                          </a>
-                          .
-                        </>
-                      )}
+                  Your email app should open with <strong>To:</strong>{" "}
+                  {CATERING_REQUEST_EMAILS.join(" · ")} — tap <strong>Send</strong> to deliver the
+                  request to both inboxes. Browsers cannot open email and texts at the same time; use
+                  the buttons below to text both lines with the same message.
                 </p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={postSubmit.smsCombinedHref}
+                    className="inline-flex rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-editorial text-cream hover:bg-white/15"
+                  >
+                    Text both numbers
+                  </a>
+                  {postSubmit.smsIndividualHrefs.map(({ label, href }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      className="inline-flex rounded-full border border-white/20 px-4 py-2 text-[10px] uppercase tracking-editorial text-cream hover:bg-white/5"
+                    >
+                      Text {label}
+                    </a>
+                  ))}
+                  <a
+                    href={postSubmit.mailtoHref}
+                    className="inline-flex rounded-full border border-white/20 px-4 py-2 text-[10px] uppercase tracking-editorial text-cream hover:bg-white/5"
+                  >
+                    Open email again
+                  </a>
+                </div>
                 <textarea
                   readOnly
                   className="max-h-40 w-full resize-y rounded-xl border border-white/15 bg-black/30 p-3 font-mono text-xs text-cream/90"

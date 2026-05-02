@@ -1,4 +1,7 @@
-import { CONTACT } from "@/lib/data/locations";
+import {
+  CATERING_REQUEST_EMAILS,
+  CATERING_REQUEST_SMS_RECIPIENTS,
+} from "@/lib/data/catering-requests";
 
 export type CateringFormFields = {
   name: string;
@@ -31,32 +34,46 @@ export function formatCateringInquiry(form: CateringFormFields): string {
   return lines.join("\n");
 }
 
-function cateringInboundEmail(): string | undefined {
-  if (typeof process === "undefined" || !process.env.NEXT_PUBLIC_CATERING_EMAIL) return undefined;
-  const v = process.env.NEXT_PUBLIC_CATERING_EMAIL.trim();
-  return v || undefined;
+function smsBodyForUri(fullBody: string): string {
+  if (fullBody.length <= SMS_BODY_MAX) return fullBody;
+  return `${fullBody.slice(0, SMS_BODY_MAX - 30)}\n…(message truncated)`;
 }
 
-export type CateringDeliveryMode = "mailto" | "sms";
+export type CateringRequestLaunch = {
+  body: string;
+  mailtoHref: string;
+  /** Some devices open a group thread; others ignore extra recipients — individual links are also shown. */
+  smsCombinedHref: string;
+  smsIndividualHrefs: { label: string; href: string }[];
+};
 
-export type CateringInquiryOpenResult = { mode: CateringDeliveryMode; body: string };
+function buildCateringRequestLaunch(form: CateringFormFields): CateringRequestLaunch {
+  const body = formatCateringInquiry(form);
+  const subject = encodeURIComponent("Gringos Cubanos — catering request");
+  const to = CATERING_REQUEST_EMAILS.join(",");
+  const mailtoHref = `mailto:${to}?subject=${subject}&body=${encodeURIComponent(body)}`;
+
+  const smsText = smsBodyForUri(body);
+  const enc = encodeURIComponent(smsText);
+  const numbersJoined = CATERING_REQUEST_SMS_RECIPIENTS.map((r) => r.e164).join(",");
+  const smsCombinedHref = `sms:${numbersJoined}?body=${enc}`;
+
+  const smsIndividualHrefs = CATERING_REQUEST_SMS_RECIPIENTS.map((r) => ({
+    label: r.label,
+    href: `sms:${r.e164}?body=${enc}`,
+  }));
+
+  return { body, mailtoHref, smsCombinedHref, smsIndividualHrefs };
+}
 
 /**
- * Opens the visitor's mail or SMS app with a pre-filled request (must run from a user gesture).
- * Returns the full message text (for confirmation UI) and which channel was used.
+ * Opens the default mail app with To: both catering inboxes and the request pre-filled.
+ * Returns URLs + body for follow-up (SMS must be opened separately; see UI links).
  */
-export function openCateringInquiry(form: CateringFormFields): CateringInquiryOpenResult {
-  const body = formatCateringInquiry(form);
-  const email = cateringInboundEmail();
-
-  if (email) {
-    const subject = encodeURIComponent("Gringos Cubanos — catering request");
-    window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
-    return { mode: "mailto", body };
+export function openCateringInquiry(form: CateringFormFields): CateringRequestLaunch {
+  const launch = buildCateringRequestLaunch(form);
+  if (typeof window !== "undefined") {
+    window.location.href = launch.mailtoHref;
   }
-
-  const smsBody =
-    body.length > SMS_BODY_MAX ? `${body.slice(0, SMS_BODY_MAX - 30)}\n…(message truncated)` : body;
-  window.location.href = `sms:${CONTACT.phoneTel}?body=${encodeURIComponent(smsBody)}`;
-  return { mode: "sms", body };
+  return launch;
 }
