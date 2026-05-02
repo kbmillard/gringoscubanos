@@ -1,5 +1,8 @@
 import type { LocationItem } from "./schema";
 
+/** Search query for map links and embeds when the truck row has no pin or address yet. */
+const MAPS_BRAND_FALLBACK_QUERY = "Gringos Cubanos food truck";
+
 function publicMapsEmbedKey(): string | undefined {
   if (typeof process === "undefined") return undefined;
   return process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY?.trim() || undefined;
@@ -25,7 +28,7 @@ function mapsEmbedV1Place(loc: LocationItem, key: string): string | null {
   if (line.trim()) {
     return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(pub)}&q=${encodeURIComponent(line)}`;
   }
-  return null;
+  return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(pub)}&q=${encodeURIComponent(MAPS_BRAND_FALLBACK_QUERY)}`;
 }
 
 /**
@@ -48,8 +51,6 @@ export function formatAddressLine(loc: LocationItem): string {
   return [loc.address, cityLine].filter(Boolean).join(", ");
 }
 
-const MAPS_BRAND_FALLBACK_QUERY = "Gringos Cubanos food truck";
-
 /** Google Maps “search” URL when `mapsUrl` is blank. */
 export function defaultMapsSearchUrl(loc: LocationItem): string {
   const q = formatAddressLine(loc).trim();
@@ -66,6 +67,11 @@ export function resolvedAppleMapsUrl(loc: LocationItem): string {
   const q = formatAddressLine(loc).trim();
   const query = q || MAPS_BRAND_FALLBACK_QUERY;
   return `https://maps.apple.com/?q=${encodeURIComponent(query)}`;
+}
+
+/** Classic embed (no API key) centered on the brand search when there is no address or place id. */
+export function brandFallbackMapsClassicEmbedUrl(): string {
+  return `https://www.google.com/maps?q=${encodeURIComponent(MAPS_BRAND_FALLBACK_QUERY)}&z=11&output=embed`;
 }
 
 /** Classic Google Maps embed (no API key) when only an address is available. */
@@ -99,7 +105,7 @@ export function resolvedEmbedSrc(loc: LocationItem): string | null {
   if (loc.lat != null && loc.lng != null && !Number.isNaN(loc.lat) && !Number.isNaN(loc.lng)) {
     return `https://www.google.com/maps?q=${loc.lat},${loc.lng}&z=16&output=embed`;
   }
-  return addressOnlyMapsEmbedIframeUrl(loc);
+  return addressOnlyMapsEmbedIframeUrl(loc) ?? brandFallbackMapsClassicEmbedUrl();
 }
 
 export function telHrefFromDisplay(phoneDisplay: string, fallbackTel: string): string {

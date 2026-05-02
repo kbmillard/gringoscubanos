@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { LocationItem } from "@/lib/locations/schema";
 import {
   addressOnlyMapsEmbedIframeUrl,
+  brandFallbackMapsClassicEmbedUrl,
   formatAddressLine,
   placeIdOnlyMapsEmbedIframeUrl,
 } from "@/lib/locations/helpers";
@@ -21,10 +22,11 @@ type Props = {
  * Maps JavaScript Geocoder (HTTP-referrer key). On failure, falls back to a classic
  * address-only Google Maps iframe (no API key).
  */
-function classicMapsEmbedFallback(loc: LocationItem, placeId: string | undefined): string | null {
+function classicMapsEmbedFallback(loc: LocationItem, placeId: string | undefined): string {
   return (
     addressOnlyMapsEmbedIframeUrl(loc) ??
-    (placeId ? placeIdOnlyMapsEmbedIframeUrl(placeId) : null)
+    (placeId ? placeIdOnlyMapsEmbedIframeUrl(placeId) : null) ??
+    brandFallbackMapsClassicEmbedUrl()
   );
 }
 
@@ -44,6 +46,7 @@ export function GoogleMapClientResolved({ loc, title, className }: Props) {
       return;
     }
     if (!placeId && !line.trim()) {
+      setIframeFallback(brandFallbackMapsClassicEmbedUrl());
       return;
     }
 
