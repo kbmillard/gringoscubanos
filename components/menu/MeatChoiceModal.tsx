@@ -1,7 +1,9 @@
 "use client";
 
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
+import { useScrollLock } from "@/lib/utils/use-scroll-lock";
 import { meatChoices } from "@/lib/menu/schema";
 import type { MenuItem } from "@/lib/menu/schema";
 
@@ -14,6 +16,14 @@ type Props = {
 
 export function MeatChoiceModal({ item, open, onOpenChange, onConfirm }: Props) {
   const titleId = useId();
+  const [mounted, setMounted] = useState(false);
+  const dialogOpen = Boolean(open && item);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useScrollLock(dialogOpen);
 
   useEffect(() => {
     if (!open) return;
@@ -24,11 +34,11 @@ export function MeatChoiceModal({ item, open, onOpenChange, onConfirm }: Props) 
     return () => window.removeEventListener("keydown", onKey);
   }, [onOpenChange, open]);
 
-  if (!open || !item) return null;
+  if (!mounted || !dialogOpen || !item) return null;
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[85] flex items-end justify-center sm:items-center sm:p-6"
+      className="fixed inset-0 z-[85] flex min-h-0 items-center justify-center overflow-x-hidden overflow-y-auto p-4 sm:p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
@@ -39,8 +49,8 @@ export function MeatChoiceModal({ item, open, onOpenChange, onConfirm }: Props) 
         aria-label="Close meat choice"
         onClick={() => onOpenChange(false)}
       />
-      <div className="relative z-[86] w-full max-w-md rounded-t-2xl border border-white/10 bg-charcoal p-6 shadow-2xl sm:rounded-2xl">
-        <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="relative z-[86] my-auto flex w-full max-w-md min-h-0 max-h-[min(85dvh,720px)] flex-col rounded-2xl border border-white/10 bg-charcoal p-6 shadow-2xl sm:max-h-[85vh]">
+        <div className="mb-4 shrink-0 flex items-start justify-between gap-3">
           <div>
             <p id={titleId} className="font-display text-2xl text-cream">
               Choose an option
@@ -55,7 +65,7 @@ export function MeatChoiceModal({ item, open, onOpenChange, onConfirm }: Props) 
             <X className="h-5 w-5" />
           </button>
         </div>
-        <ul className="max-h-[50vh] space-y-1 overflow-y-auto pr-1">
+        <ul className="min-h-0 flex-1 space-y-1 overflow-y-auto overscroll-y-contain pr-1">
           {meatChoices.map((m) => (
             <li key={m}>
               <button
@@ -72,6 +82,7 @@ export function MeatChoiceModal({ item, open, onOpenChange, onConfirm }: Props) 
           ))}
         </ul>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

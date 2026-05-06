@@ -16,13 +16,16 @@ type Props = {
 
 export function MenuOptionGroupsModal({ item, open, onOpenChange, onConfirm }: Props) {
   const titleId = useId();
-  const groups = item?.optionGroups ?? [];
-  const dialogActive = Boolean(open && item && groups.length > 0);
   const [mounted, setMounted] = useState(false);
+  const groups = item?.optionGroups ?? [];
+  const dialogOpen = Boolean(open && item && groups.length > 0);
   const [sel, setSel] = useState<Record<string, string>>({});
 
-  useEffect(() => setMounted(true), []);
-  useScrollLock(dialogActive);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useScrollLock(dialogOpen);
 
   useEffect(() => {
     if (open && item) {
@@ -48,7 +51,7 @@ export function MenuOptionGroupsModal({ item, open, onOpenChange, onConfirm }: P
     return () => window.removeEventListener("keydown", onKey);
   }, [onOpenChange, open]);
 
-  if (!mounted || !dialogActive || !item) return null;
+  if (!mounted || !dialogOpen || !item) return null;
 
   const setGroup = (g: MenuOptionGroup, value: string) => {
     setSel((prev) => ({ ...prev, [g.id]: value }));
@@ -67,8 +70,8 @@ export function MenuOptionGroupsModal({ item, open, onOpenChange, onConfirm }: P
         aria-label="Close options"
         onClick={() => onOpenChange(false)}
       />
-      <div className="relative z-[86] my-auto flex w-full max-w-md min-h-0 max-h-[min(85dvh,720px)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-charcoal shadow-2xl sm:max-h-[85vh]">
-        <div className="shrink-0 p-6 pb-0">
+      <div className="relative z-[86] my-auto flex w-full max-w-md min-h-0 max-h-[min(85dvh,720px)] flex-col rounded-2xl border border-white/10 bg-charcoal p-6 shadow-2xl sm:max-h-[85vh]">
+        <div className="shrink-0">
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
               <p id={titleId} className="font-display text-2xl text-cream">
@@ -85,7 +88,7 @@ export function MenuOptionGroupsModal({ item, open, onOpenChange, onConfirm }: P
             </button>
           </div>
         </div>
-        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-y-contain px-6 pr-5">
+        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto overscroll-y-contain pr-1">
           {groups.map((g) => (
             <div key={g.id}>
               <p className="text-xs uppercase tracking-editorial text-cream/50">
@@ -112,20 +115,18 @@ export function MenuOptionGroupsModal({ item, open, onOpenChange, onConfirm }: P
             </div>
           ))}
         </div>
-        <div className="shrink-0 p-6 pt-4">
-          <button
-            type="button"
-            disabled={!complete}
-            className="w-full rounded-full bg-salsa py-3 text-sm font-semibold uppercase tracking-editorial text-cream disabled:cursor-not-allowed disabled:opacity-40"
-            onClick={() => {
-              if (!complete) return;
-              onConfirm(sel);
-              onOpenChange(false);
-            }}
-          >
-            Add to cart
-          </button>
-        </div>
+        <button
+          type="button"
+          disabled={!complete}
+          className="mt-6 w-full shrink-0 rounded-full bg-salsa py-3 text-sm font-semibold uppercase tracking-editorial text-cream disabled:cursor-not-allowed disabled:opacity-40"
+          onClick={() => {
+            if (!complete) return;
+            onConfirm(sel);
+            onOpenChange(false);
+          }}
+        >
+          Add to cart
+        </button>
       </div>
     </div>,
     document.body,
